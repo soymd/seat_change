@@ -26,13 +26,13 @@ class MenuFragment : Fragment() {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
 
         binding.viewModel = viewModel
-        viewModel.callSeatChangeEvent.observe(this, Observer {
+        viewModel.callSeatChangeEvent.observe(viewLifecycleOwner, Observer {
             callSeatChange()
         })
-        viewModel.callColorConfigEvent.observe(this, Observer {
+        viewModel.callColorConfigEvent.observe(viewLifecycleOwner, Observer {
             callColorConfig()
         })
-        viewModel.callProjectConfigEvent.observe(this, Observer {
+        viewModel.callProjectConfigEvent.observe(viewLifecycleOwner, Observer {
             callProjectConfig()
         })
 
@@ -42,24 +42,25 @@ class MenuFragment : Fragment() {
 
     private fun callSeatChange() {
         val fragment = SeatChangeFragment()
-        this.fragmentManager?.beginTransaction()
-            ?.replace(R.id.fragmentRoot, fragment)
-            ?.commit()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentRoot, fragment)
+            .commit()
     }
+
 
     private fun callColorConfig() {
         val fragment = ColorConfigFragment()
-        this.fragmentManager?.beginTransaction()
-            ?.replace(R.id.fragmentRoot, fragment)
-            ?.commit()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentRoot, fragment)
+            .commit()
     }
 
 
     private fun callProjectConfig() {
         val fragment = ProjectConfigFragment()
-        this.fragmentManager?.beginTransaction()
-            ?.replace(R.id.fragmentRoot, fragment)
-            ?.commit()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentRoot, fragment)
+            .commit()
     }
 
 }
