@@ -4,10 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-    val callProjectConfigEvent = MutableLiveData<Void>()
+    val callMenuEvent = MutableLiveData<Void>()
 
     fun callMenu() {
-        callProjectConfigEvent.value = null
+        callMenuEvent.value = null
     }
 
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
-import com.example.seatchangeapplication.projectconfig.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
 class MainActivity : AppCompatActivity() {
@@ -15,32 +14,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         viewModel = MainViewModel()
-
         dataBinding.viewModel = viewModel
-
-        viewModel.callProjectConfigEvent.observe(this, Observer {
+        viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
-
-        val fragment = SeatChangeFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentRoot, fragment)
-
-            .commit()
     }
 
     override fun onResume() {
         super.onResume()
-
+        // 画面初期表示, TODO: 共通化
+        val fragment = SeatChangeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentRoot, fragment)
+            .commit()
     }
 
     private fun callMenuFragment() {
-        val fragment = MenuFragment()
+        val menuFragment = MenuFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.menuFragmentRoot, fragment)
-            .addToBackStack(null) // backStackに登録する場合
+            .replace(R.id.menuFragmentRoot, menuFragment)
+            .addToBackStack(null)
             .commit()
     }
 }

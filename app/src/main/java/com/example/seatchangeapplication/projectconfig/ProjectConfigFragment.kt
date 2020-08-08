@@ -5,20 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.seatchangeapplication.databinding.FragmentMenuBinding
-import com.example.seatchangeapplication.databinding.FragmentSeatChangeBinding
+import com.example.seatchangeapplication.databinding.FragmentProjectConfigBinding
 
-class MenuFragment : Fragment() {
-    private lateinit var binding: FragmentMenuBinding
+class ProjectConfigFragment: Fragment() {
+
+    lateinit var binding: FragmentProjectConfigBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMenuBinding.inflate(inflater, container, false)
 
+        binding = FragmentProjectConfigBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 }
