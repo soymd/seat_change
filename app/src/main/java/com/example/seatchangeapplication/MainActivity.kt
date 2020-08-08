@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
+import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
+
+
     }
 
     override fun onResume() {

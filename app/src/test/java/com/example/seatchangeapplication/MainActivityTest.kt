@@ -1,6 +1,7 @@
 package com.example.seatchangeapplication
 
 import android.content.Intent
+import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Before
