@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         dataBinding.viewModel = viewModel
 
         viewModel.callProjectConfigEvent.observe(this, Observer {
-            callProjectConfigFragment()
+            callMenuFragment()
         })
 
         val fragment = SeatChangeFragment()
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun callProjectConfigFragment() {
+    private fun callMenuFragment() {
         val fragment = MenuFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.menuFragmentRoot, fragment)

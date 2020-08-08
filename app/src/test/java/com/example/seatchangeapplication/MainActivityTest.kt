@@ -3,7 +3,9 @@ package com.example.seatchangeapplication
 import android.content.Intent
 import com.example.seatchangeapplication.projectconfig.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
+import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.MatcherAssert
 import org.junit.Before
 
 import org.junit.Assert.*
@@ -40,9 +42,14 @@ class MainActivityTest {
             Intent()
         ).create().start().resume().get()
 
-        subject.dataBinding.projectConfigButton.performClick()
+        subject.dataBinding.menuButton.performClick()
 
         val fragment = subject.supportFragmentManager.fragments.last()
         assertThat(fragment, instanceOf(MenuFragment::class.java))
+
+//        MatcherAssert.assertThat(
+//            fragment.childFragmentManager.fragments.size,
+//            CoreMatchers.equalTo(1)
+//        )
     }
 }
