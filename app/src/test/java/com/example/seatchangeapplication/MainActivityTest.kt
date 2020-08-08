@@ -34,7 +34,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun `切り替えボタン押下で、ProjectConfigFragmentが呼ばれる`() {
+    fun `menuボタン押下で、MenuFragmentが呼ばれる`() {
         subject = Robolectric.buildActivity(
             MainActivity::class.java,
             Intent()

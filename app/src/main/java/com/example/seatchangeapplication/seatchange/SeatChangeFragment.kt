@@ -20,7 +20,7 @@ class SeatChangeFragment : Fragment() {
     ): View? {
 
         binding = FragmentSeatChangeBinding.inflate(inflater, container, false)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
 }

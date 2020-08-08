@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val fragment = SeatChangeFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentRoot, fragment)
-            .addToBackStack(null) // backStackに登録する場合
+
             .commit()
     }
 
