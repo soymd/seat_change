@@ -6,6 +6,10 @@
         <variable
             name="viewModel"
             type="com.example.seatchangeapplication.menu.MenuViewModel" />
+
+        <variable
+            name="fragmentType"
+            type="com.example.seatchangeapplication.FragmentType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,29 +30,29 @@
             android:id="@+id/seatChangeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.callFragment(fragmentType.SEAT_CHANGE)}"
+            android:text="seat-change"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewModel.callSeatChange()}"
-            android:text="seat-change" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/projectConfigButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.callFragment(fragmentType.PROJECT_CONFIG)}"
+            android:text="project-config"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seatChangeButton"
-            android:onClick="@{() -> viewModel.callProjectConfig()}"
-            android:text="project-config" />
+            app:layout_constraintTop_toBottomOf="@id/seatChangeButton" />
 
         <Button
             android:id="@+id/colorConfigButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.callFragment(fragmentType.COLOR_CONFIG)}"
+            android:text="color-config"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/projectConfigButton"
-            android:onClick="@{() -> viewModel.callColorConfig()}"
-            android:text="color-config" />
+            app:layout_constraintTop_toBottomOf="@id/projectConfigButton" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

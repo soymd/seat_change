@@ -2,21 +2,12 @@ package com.example.seatchangeapplication.menu
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.seatchangeapplication.FragmentType
 
 class MenuViewModel : ViewModel() {
-    val callSeatChangeEvent = MutableLiveData<Void>()
-    val callColorConfigEvent = MutableLiveData<Void>()
-    val callProjectConfigEvent = MutableLiveData<Void>()
+    val callFragmentEvent = MutableLiveData<FragmentType>()
 
-    fun callSeatChange() {
-        callSeatChangeEvent.value = null
-    }
-
-    fun callColorConfig() {
-        callColorConfigEvent.value = null
-    }
-
-    fun callProjectConfig() {
-        callProjectConfigEvent.value = null
+    fun callFragment(type: FragmentType) {
+        callFragmentEvent.value = type
     }
 }
