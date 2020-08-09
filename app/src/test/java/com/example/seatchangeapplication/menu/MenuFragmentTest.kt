@@ -1,23 +1,23 @@
 package com.example.seatchangeapplication.menu
 
+import android.widget.Button
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.runner.AndroidJUnit4
+import com.example.seatchangeapplication.MainActivity
 import com.example.seatchangeapplication.R
+import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
+import org.hamcrest.CoreMatchers.instanceOf
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
+import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 
-//@RunWith(AndroidJUnit4::class)
-@RunWith(RobolectricTestRunner::class)
+@RunWith(AndroidJUnit4::class)
+//@RunWith(RobolectricTestRunner::class)
 @Config(sdk = [28])
 class MenuFragmentTest {
     @get:Rule
@@ -31,20 +31,23 @@ class MenuFragmentTest {
         subject = MenuFragment()
     }
 
-    //TODO:xmlのバインディング式でviewModelの関数を呼ぶボタンの
-    // performClick()、perform(click())が動いてない。
+
     @Test
     fun `ColorConfigButton押下でColorConfigFragment呼び出し`() {
-//        val activity = Robolectric.buildActivity(MainActivity::class.java).create().start().resume().get()
-//        activity.supportFragmentManager.beginTransaction().add(subject, null).commit()
-//
-//        subject.view!!.findViewById<Button>(R.id.colorConfigButton).performClick()
-//
-//        val fragment = subject.parentFragmentManager.fragments.last()
-//        assertThat(fragment, instanceOf(ColorConfigFragment::class.java))
+        val activity =
+            Robolectric.buildActivity(MainActivity::class.java).create().start().resume().get()
+        activity.supportFragmentManager.beginTransaction().add(subject, null).commit()
 
+        subject.view!!.findViewById<Button>(R.id.colorConfigButton).performClick()
 
-        scenario = launchFragmentInContainer<MenuFragment>()
+        //Shadows.shadowOf(Looper.getMainLooper()).idle()
+
+        val fragment = subject.parentFragmentManager.fragments.last()
+        assertThat(fragment, instanceOf(ColorConfigFragment::class.java))
+
+        //TODO:以下のespressoテストではxmlのバインディング式でviewModelの関数を呼ぶボタンの
+        // perform(click())が動いてない。
+/*        scenario = launchFragmentInContainer<MenuFragment>()
 
         //↓実行可能
         onView(withId(R.id.hogeButton)).perform(click())
@@ -57,6 +60,6 @@ class MenuFragmentTest {
         //実行不可
         onView(withId(R.id.colorConfigButton)).perform(click())
 //        onView(withId(R.id.seatChangeButton)).perform(click())
-//        onView(withId(R.id.projectConfigButton)).perform(click())
+//        onView(withId(R.id.projectConfigButton)).perform(click())*/
     }
 }

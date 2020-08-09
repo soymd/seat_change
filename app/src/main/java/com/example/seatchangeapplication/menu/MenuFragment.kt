@@ -22,8 +22,10 @@ class MenuFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = MenuViewModel()
+        println("MenuFragment - onCreateView")
         binding = FragmentMenuBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        viewModel = MenuViewModel()
         binding.viewModel = viewModel
 
         viewModel.callFragmentEvent.observe(viewLifecycleOwner, Observer {

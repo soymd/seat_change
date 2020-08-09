@@ -3,15 +3,14 @@ package com.example.seatchangeapplication
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
-class MainActivity : AppCompatActivity(), LifecycleOwner {
-    lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: MainViewModel
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +20,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
-
-
     }
 
     override fun onResume() {

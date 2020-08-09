@@ -8,7 +8,6 @@ class MainViewModel : ViewModel() {
 
     fun callMenu() {
         callMenuEvent.value = null
+        println("menu called")
     }
-
-
 }
