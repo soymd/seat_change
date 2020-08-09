@@ -1,0 +1,62 @@
+package com.example.seatchangeapplication.menu
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.example.seatchangeapplication.R
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+
+//@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [28])
+class MenuFragmentTest {
+    @get:Rule
+    var taskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var subject: MenuFragment
+    private lateinit var scenario: FragmentScenario<MenuFragment>
+
+    @Before
+    fun setUp() {
+        subject = MenuFragment()
+    }
+
+    //TODO:xmlのバインディング式でviewModelの関数を呼ぶボタンの
+    // performClick()、perform(click())が動いてない。
+    @Test
+    fun `ColorConfigButton押下でColorConfigFragment呼び出し`() {
+//        val activity = Robolectric.buildActivity(MainActivity::class.java).create().start().resume().get()
+//        activity.supportFragmentManager.beginTransaction().add(subject, null).commit()
+//
+//        subject.view!!.findViewById<Button>(R.id.colorConfigButton).performClick()
+//
+//        val fragment = subject.parentFragmentManager.fragments.last()
+//        assertThat(fragment, instanceOf(ColorConfigFragment::class.java))
+
+
+        scenario = launchFragmentInContainer<MenuFragment>()
+
+        //↓実行可能
+        onView(withId(R.id.hogeButton)).perform(click())
+
+        //可視状態にはなっている模様
+        onView(withId(R.id.colorConfigButton)).check(matches(isDisplayed()))
+//        onView(withId(R.id.seatChangeButton)).check(matches(isDisplayed()))
+//        onView(withId(R.id.projectConfigButton)).check(matches(isDisplayed()))
+
+        //実行不可
+        onView(withId(R.id.colorConfigButton)).perform(click())
+//        onView(withId(R.id.seatChangeButton)).perform(click())
+//        onView(withId(R.id.projectConfigButton)).perform(click())
+    }
+}

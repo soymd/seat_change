@@ -7,6 +7,10 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "com.example.seatchangeapplication"
         minSdkVersion 28
@@ -47,17 +51,22 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
 
+    def fragment_version = "1.2.5"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
-    implementation "androidx.fragment:fragment-ktx:1.2.4"
+    testImplementation "androidx.test.espresso:espresso-core:3.2.0"
+    testImplementation "androidx.test.espresso:espresso-intents:3.2.0"
+    testImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
 
+    testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
 
+    // RxIdler(test for espresso with rxjava)
+    testImplementation 'com.squareup.rx.idler:rx2-idler:0.11.0'
 }

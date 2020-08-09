@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.R
 import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
 import com.example.seatchangeapplication.databinding.FragmentMenuBinding
-import com.example.seatchangeapplication.databinding.FragmentSeatChangeBinding
 import com.example.seatchangeapplication.projectconfig.ProjectConfigFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
@@ -44,7 +43,9 @@ class MenuFragment : Fragment() {
         val fragment = SeatChangeFragment()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentRoot, fragment)
+            .addToBackStack(null)
             .commit()
+        println("SeatChangeFragment called")
     }
 
 
@@ -52,7 +53,9 @@ class MenuFragment : Fragment() {
         val fragment = ColorConfigFragment()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentRoot, fragment)
+            .addToBackStack(null)
             .commit()
+        println("ColorConfigFragment called")
     }
 
 
@@ -60,7 +63,9 @@ class MenuFragment : Fragment() {
         val fragment = ProjectConfigFragment()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentRoot, fragment)
+            .addToBackStack(null)
             .commit()
+        println("ProjectConfigFragment called")
     }
 
 }

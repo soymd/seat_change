@@ -1,22 +1,23 @@
 package com.example.seatchangeapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
-class MainActivity : AppCompatActivity() {
-    lateinit var dataBinding: ActivityMainBinding
+class MainActivity : AppCompatActivity(), LifecycleOwner {
+    lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = MainViewModel()
-        dataBinding.viewModel = viewModel
+        binding.viewModel = viewModel
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
@@ -39,5 +40,6 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.menuFragmentRoot, menuFragment)
             .addToBackStack(null)
             .commit()
+        println("MenuFragment called")
     }
 }
