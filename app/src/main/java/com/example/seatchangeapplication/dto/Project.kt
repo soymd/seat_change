@@ -1,4 +1,6 @@
 package com.example.seatchangeapplication.dto
 
-class Project {
-}
+data class Project(
+    var projectId: Int,
+    var projectName: Int
+)
