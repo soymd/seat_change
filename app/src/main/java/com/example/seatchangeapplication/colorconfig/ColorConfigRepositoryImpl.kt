@@ -1,6 +1,6 @@
 package com.example.seatchangeapplication.colorconfig
 
-class ColorConfigRepository: IColorConfigRepository {
+class ColorConfigRepositoryImpl: IColorConfigRepository {
     override fun get(): List<ColorConfigModel> {
         return listOf();
     }

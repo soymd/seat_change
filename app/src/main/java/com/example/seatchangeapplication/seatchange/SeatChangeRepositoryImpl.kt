@@ -1,6 +1,6 @@
 package com.example.seatchangeapplication.seatchange
 
-class SeatChangeRepository: ISeatChangeRepository {
+class SeatChangeRepositoryImpl: ISeatChangeRepository {
 
     override fun get(): List<SeatChangeModel> {
         return listOf();
