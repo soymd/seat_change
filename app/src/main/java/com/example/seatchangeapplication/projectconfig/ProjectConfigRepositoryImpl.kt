@@ -6,15 +6,15 @@ class ProjectConfigRepositoryImpl: IProjectConfigRepository {
         return listOf();
     }
 
-    override fun post(list: List<ProjectConfigModel>): Int {
+    override fun post(projectConfigModelList: List<ProjectConfigModel>): Int {
         return 0;
     }
 
-    override fun put(list: List<ProjectConfigModel>): Int {
+    override fun put(projectConfigModelList: List<ProjectConfigModel>): Int {
         return 0;
     }
 
-    override fun delete(list: List<ProjectConfigModel>): Int {
+    override fun delete(projectConfigModelList: List<ProjectConfigModel>): Int {
         return 0;
     }
 }

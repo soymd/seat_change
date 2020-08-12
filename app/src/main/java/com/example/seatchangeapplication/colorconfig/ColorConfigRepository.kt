@@ -4,13 +4,13 @@ class ColorConfigRepository: IColorConfigRepository {
     override fun get(): List<ColorConfigModel> {
         return listOf();
     }
-    override fun put(seatChangeModelList: List<ColorConfigModel>): Int {
+    override fun put(colorConfigModel: List<ColorConfigModel>): Int {
         return 0;
     }
-    override fun post(seatChangeModelList: List<ColorConfigModel>): Int {
+    override fun post(colorConfigModel: List<ColorConfigModel>): Int {
         return 0;
     }
-    override fun delete(seatChangeModelList: List<ColorConfigModel>): Int {
+    override fun delete(colorConfigModel: List<ColorConfigModel>): Int {
         return 0;
     }
 
