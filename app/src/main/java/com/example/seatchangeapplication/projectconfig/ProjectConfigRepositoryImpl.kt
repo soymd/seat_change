@@ -1,5 +1,8 @@
 package com.example.seatchangeapplication.projectconfig
 
+/**
+ * 案件設定画面ロジック実装クラス
+ */
 class ProjectConfigRepositoryImpl: IProjectConfigRepository {
 
     override fun get(): List<ProjectConfigModel> {
