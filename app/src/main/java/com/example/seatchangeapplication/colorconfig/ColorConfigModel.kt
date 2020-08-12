@@ -16,4 +16,8 @@ data class ColorConfigModel(
             )
         }
     }
+
+    fun isValid(): Boolean {
+        return true;
+    }
 }

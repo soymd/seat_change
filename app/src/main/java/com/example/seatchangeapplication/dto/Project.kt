@@ -1,6 +1,17 @@
 package com.example.seatchangeapplication.dto
 
-data class Project(
+/**
+ * projectテーブルDTO
+ */
+data class Project (
     var projectId: Int,
     var projectName: Int
-)
+): IDto {
+
+    /**
+     * データ不正チェック
+     */
+    override fun isValid(): Boolean {
+        return true;
+    }
+}

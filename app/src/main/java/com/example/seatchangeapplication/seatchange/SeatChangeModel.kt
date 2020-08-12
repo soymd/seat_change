@@ -8,7 +8,7 @@ data class SeatChangeModel(
     var positionX: Int,
     var positionY: Int,
     var projectColorValue: String
-) {
+){
     companion object {
         fun getInstance(): SeatChangeModel {
             return SeatChangeModel(
@@ -21,5 +21,9 @@ data class SeatChangeModel(
                 projectColorValue = "#ffffff"
             )
         }
+    }
+
+    fun isValid(): Boolean {
+        return true;
     }
 }

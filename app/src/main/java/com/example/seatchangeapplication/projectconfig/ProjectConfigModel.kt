@@ -16,4 +16,8 @@ data class ProjectConfigModel(
             )
         }
     }
+
+    fun isValid(): Boolean {
+        return true;
+    }
 }
