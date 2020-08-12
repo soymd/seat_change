@@ -124,24 +124,23 @@ class DbManager(context: Context) {
     /**
      * 関係性IDからrelation_seat_staffを引き当てる
      */
-    private fun getRelationSeatStaff(relationId: Int): RelationSeatStaff {
+    private fun getRelationSeatStaff(relationId: Int): RelationSeatStaff? {
         return RelationSeatStaff.from()
     }
 
     /**
      * 関係性IDからrelation_staff_projectを引き当てる
      */
-    private fun getRelationStaffProject(relationId: Int): RelationStaffProject {
+    private fun getRelationStaffProject(relationId: Int): RelationStaffProject? {
         return RelationStaffProject.from()
     }
 
     /**
      * 関係性IDからrelation_project_colorを引き当てる
      */
-    private fun getRelationProjectColor(relationId: Int): RelationProjectColor {
+    private fun getRelationProjectColor(relationId: Int): RelationProjectColor? {
         return RelationProjectColor.from()
     }
-
 
     private fun doWithTransaction(action: () -> Int): Int {
         // 全件検索などで使用する想定
