@@ -7,12 +7,24 @@ data class Color (
     var colorId: Int,
     var colorName: String,
     var colorValue: String
-): IDto {
+) {
+    companion object {
+        /**
+         * ファクトリー
+         */
+        fun getInstance(): Color {
+            return Color(
+                colorId = 0,
+                colorName = "",
+                colorValue = ""
+            )
+        }
+    }
 
     /**
      * データ不正チェック
      */
-    override fun isValid(): Boolean {
+    fun isValid(): Boolean {
         return true;
     }
 }

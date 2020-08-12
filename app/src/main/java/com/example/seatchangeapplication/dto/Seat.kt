@@ -10,12 +10,25 @@ data class Seat (
     var desk: Int,
     var positionX: Int,
     var positionY: Int
-): IDto {
+) {
+    companion object {
+        /**
+         * ファクトリー
+         */
+        fun getInstance(): Seat {
+            return Seat(
+                seatId = 0,
+                desk = 0,
+                positionX = 0,
+                positionY = 0
+            )
+        }
+    }
 
     /**
      * データ不正チェック
      */
-    override fun isValid(): Boolean {
+    fun isValid(): Boolean {
         return true;
     }
 }

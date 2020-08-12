@@ -7,12 +7,24 @@ data class RelationStaffProject (
     var relationSeatProjectId: Int,
     var seatId: Int,
     var projectId: Int
-): IDto {
+) {
+    companion object {
+        /**
+         * ファクトリー
+         */
+        fun getInstance(): RelationStaffProject {
+            return RelationStaffProject(
+                relationSeatProjectId = 0,
+                seatId = 0,
+                projectId = 0
+            )
+        }
+    }
 
     /**
      * データ不正チェック
      */
-    override fun isValid(): Boolean {
+    fun isValid(): Boolean {
         return true;
     }
 }

@@ -6,12 +6,23 @@ package com.example.seatchangeapplication.dto
 data class Project (
     var projectId: Int,
     var projectName: Int
-): IDto {
+) {
+    companion object {
+        /**
+         * ファクトリー
+         */
+        fun getInstance(): Project {
+            return Project(
+                projectId = 0,
+                projectName = 0
+            )
+        }
+    }
 
     /**
      * データ不正チェック
      */
-    override fun isValid(): Boolean {
+    fun isValid(): Boolean {
         return true;
     }
 }

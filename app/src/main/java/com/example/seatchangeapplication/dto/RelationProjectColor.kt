@@ -7,12 +7,24 @@ data class RelationProjectColor (
     var relationProjectColorId: Int,
     var projectId: Int,
     var colorId: Int
-): IDto {
+) {
+    companion object {
+        /**
+         * ファクトリー
+         */
+        fun getInstance(): RelationProjectColor {
+            return RelationProjectColor(
+                relationProjectColorId = 0,
+                projectId = 0,
+                colorId = 0
+            )
+        }
+    }
 
     /**
      * データ不正チェック
      */
-    override fun isValid(): Boolean {
+    fun isValid(): Boolean {
         return true;
     }
 }

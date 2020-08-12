@@ -6,12 +6,23 @@ package com.example.seatchangeapplication.dto
 data class Staff (
     var staffId: Int,
     var staffName: String
-): IDto {
+) {
+    companion object {
+        /**
+         * ファクトリー
+         */
+        fun getInstance(): Staff {
+            return Staff(
+                staffId = 0,
+                staffName = ""
+            )
+        }
+    }
 
     /**
      * データ不正チェック
      */
-    override fun isValid(): Boolean {
+    fun isValid(): Boolean {
         return true;
     }
 }
