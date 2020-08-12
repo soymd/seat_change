@@ -1,5 +1,8 @@
 package com.example.seatchangeapplication.projectconfig
 
+/**
+ * 案件設定画面モデル
+ */
 data class ProjectConfigModel(
     var relationStaffProjectId: Int,
     var staffName: String,
@@ -7,6 +10,9 @@ data class ProjectConfigModel(
     var projectColorValue: String
 ) {
     companion object {
+        /**
+         * ファクトリー
+         */
         fun from(): ProjectConfigModel {
             return ProjectConfigModel(
                 relationStaffProjectId = 0,
@@ -17,6 +23,9 @@ data class ProjectConfigModel(
         }
     }
 
+    /**
+     * データ不正チェック
+     */
     fun isValid(): Boolean {
         return true;
     }

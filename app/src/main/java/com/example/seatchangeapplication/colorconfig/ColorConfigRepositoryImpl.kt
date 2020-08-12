@@ -20,5 +20,4 @@ class ColorConfigRepositoryImpl: IColorConfigRepository {
     override fun delete(colorConfigModel: List<ColorConfigModel>): Int {
         return 0;
     }
-
 }

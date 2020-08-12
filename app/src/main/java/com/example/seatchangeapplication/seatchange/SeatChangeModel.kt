@@ -1,5 +1,8 @@
 package com.example.seatchangeapplication.seatchange
 
+/**
+ * 席替画面モデル
+ */
 data class SeatChangeModel(
     var relationSeatStaffId: Int,
     var staffName: String,
@@ -10,6 +13,9 @@ data class SeatChangeModel(
     var projectColorValue: String
 ){
     companion object {
+        /**
+         * ファクトリー
+         */
         fun from(): SeatChangeModel {
             return SeatChangeModel(
                 relationSeatStaffId = 0,
@@ -23,6 +29,9 @@ data class SeatChangeModel(
         }
     }
 
+    /**
+     * データ不正チェック
+     */
     fun isValid(): Boolean {
         return true;
     }

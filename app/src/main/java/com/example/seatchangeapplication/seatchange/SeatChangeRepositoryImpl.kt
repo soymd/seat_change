@@ -12,7 +12,4 @@ class SeatChangeRepositoryImpl: ISeatChangeRepository {
     override fun put(seatChangeModelList: List<SeatChangeModel>): Int {
         return 0;
     }
-
-
-
 }

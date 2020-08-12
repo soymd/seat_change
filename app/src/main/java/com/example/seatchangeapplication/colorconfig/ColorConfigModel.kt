@@ -1,5 +1,8 @@
 package com.example.seatchangeapplication.colorconfig
 
+/**
+ * 色設定画面モデル
+ */
 data class ColorConfigModel(
     var relationProjectColorId: Int,
     var projectName: String,
@@ -7,6 +10,9 @@ data class ColorConfigModel(
     var colorValue: String
 ) {
     companion object {
+        /**
+         * ファクトリー
+         */
         fun from(): ColorConfigModel {
             return ColorConfigModel(
                 relationProjectColorId = 0,
@@ -17,6 +23,9 @@ data class ColorConfigModel(
         }
     }
 
+    /**
+     * データ不正チェック
+     */
     fun isValid(): Boolean {
         return true;
     }
