@@ -10,7 +10,7 @@ data class SeatChangeModel(
     var projectColorValue: String
 ){
     companion object {
-        fun getInstance(): SeatChangeModel {
+        fun from(): SeatChangeModel {
             return SeatChangeModel(
                 relationSeatStaffId = 0,
                 staffName = "",

@@ -15,7 +15,7 @@ data class Seat (
         /**
          * ファクトリー
          */
-        fun getInstance(): Seat {
+        fun from(): Seat {
             return Seat(
                 seatId = 0,
                 desk = 0,

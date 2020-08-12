@@ -12,7 +12,7 @@ data class RelationStaffProject (
         /**
          * ファクトリー
          */
-        fun getInstance(): RelationStaffProject {
+        fun from(): RelationStaffProject {
             return RelationStaffProject(
                 relationSeatProjectId = 0,
                 seatId = 0,

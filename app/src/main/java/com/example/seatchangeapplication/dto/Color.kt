@@ -12,7 +12,7 @@ data class Color (
         /**
          * ファクトリー
          */
-        fun getInstance(): Color {
+        fun from(): Color {
             return Color(
                 colorId = 0,
                 colorName = "",

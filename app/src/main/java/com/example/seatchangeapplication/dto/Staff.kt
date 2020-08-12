@@ -11,7 +11,7 @@ data class Staff (
         /**
          * ファクトリー
          */
-        fun getInstance(): Staff {
+        fun from(): Staff {
             return Staff(
                 staffId = 0,
                 staffName = ""

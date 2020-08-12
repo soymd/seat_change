@@ -11,7 +11,7 @@ data class Project (
         /**
          * ファクトリー
          */
-        fun getInstance(): Project {
+        fun from(): Project {
             return Project(
                 projectId = 0,
                 projectName = 0

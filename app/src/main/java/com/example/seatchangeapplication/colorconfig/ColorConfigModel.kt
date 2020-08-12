@@ -7,7 +7,7 @@ data class ColorConfigModel(
     var colorValue: String
 ) {
     companion object {
-        fun getInstance(): ColorConfigModel {
+        fun from(): ColorConfigModel {
             return ColorConfigModel(
                 relationProjectColorId = 0,
                 projectName = "",

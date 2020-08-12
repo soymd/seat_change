@@ -12,7 +12,7 @@ data class RelationProjectColor (
         /**
          * ファクトリー
          */
-        fun getInstance(): RelationProjectColor {
+        fun from(): RelationProjectColor {
             return RelationProjectColor(
                 relationProjectColorId = 0,
                 projectId = 0,

@@ -12,7 +12,7 @@ data class RelationSeatStaff (
         /**
          * ファクトリ
          */
-        fun getInstance(): RelationSeatStaff {
+        fun from(): RelationSeatStaff {
             return RelationSeatStaff(
                 relationSeatStaffId = 0,
                 seatId = 0,
