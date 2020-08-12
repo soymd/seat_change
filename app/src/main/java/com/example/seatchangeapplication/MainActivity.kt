@@ -7,6 +7,7 @@ import androidx.core.database.getStringOrNull
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
+import com.example.seatchangeapplication.manager.DbManager
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
+
+        var dbManager = DbManager(applicationContext);
+
     }
 
     override fun onResume() {

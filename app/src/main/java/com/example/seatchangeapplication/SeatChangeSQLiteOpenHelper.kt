@@ -7,8 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import androidx.core.database.getStringOrNull
 
 
+/**
+ * SQLite作成クラス
+ */
 class SeatChangeSQLiteOpenHelper(
-    val context: Context?,
+    private val context: Context?,
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,
     version: Int
@@ -18,71 +21,70 @@ class SeatChangeSQLiteOpenHelper(
     factory,
     version)
 {
-
+    /**
+     * 各テーブルのCreate(if not exists時)
+     */
     override fun onCreate(db: SQLiteDatabase?) {
         val sql1 = """
-            CREATE TABLE if not exists "seat" (
-            	"seat_id"	INTEGER NOT NULL,
-            	"desk"	INTEGER NOT NULL,
-            	"position_x"	INTEGER NOT NULL,
-            	"position_y"	INTEGER NOT NULL,
-            	PRIMARY KEY("seat_id" AUTOINCREMENT)
-            )
+            CREATE TABLE if not exists "${Const.SEAT_TBL_NAME}" (
+            	"${Const.SEAT_ID}" INTEGER NOT NULL,
+            	"${Const.DESK}"	INTEGER NOT NULL,
+            	"${Const.POSITION_X}" INTEGER NOT NULL,
+            	"${Const.POSITION_Y}" INTEGER NOT NULL,
+            	PRIMARY KEY("${Const.SEAT_ID}" AUTOINCREMENT)
+            );
         """.trimIndent()
 
         val sql2 = """
-            CREATE TABLE if not exists "staff" (
-            	"staff_id"	INTEGER NOT NULL,
-            	"staff_name"	INTEGER NOT NULL,
-            	PRIMARY KEY("staff_id")
-            )
+            CREATE TABLE if not exists "${Const.STAFF_TBL_NAME}" (
+            	"${Const.STAFF_ID}" INTEGER NOT NULL,
+            	"${Const.STAFF_NAME}" TEXT NOT NULL,
+            	PRIMARY KEY("${Const.STAFF_ID}")
+            );
         """.trimIndent()
 
         val sql3 = """
-            CREATE TABLE if not exists "project" (
-                "project_id"	INTEGER NOT NULL,
-                "project_name"	TEXT NOT NULL,
-                PRIMARY KEY("project_id" AUTOINCREMENT)
-            )
+            CREATE TABLE if not exists "${Const.PROJECT_TBL_NAME}" (
+                "${Const.PROJECT_ID}" INTEGER NOT NULL,
+                "${Const.PROJECT_TBL_NAME}"	TEXT NOT NULL,
+                PRIMARY KEY("${Const.PROJECT_ID}" AUTOINCREMENT)
+            );
         """.trimIndent()
 
         val sql4 = """
-            CREATE TABLE if not exists "color" (
-            	"color_id"	INTEGER NOT NULL,
-            	"color_name"	TEXT NOT NULL,
-            	"color_value"	TEXT NOT NULL,
-            	PRIMARY KEY("color_id" AUTOINCREMENT)
-            )
+            CREATE TABLE if not exists "${Const.COLOR_TBL_NAME}" (
+            	"${Const.COLOR_ID}"	INTEGER NOT NULL,
+            	"${Const.COLOR_NAME}" TEXT NOT NULL,
+            	"${Const.COLOR_VALUE}" TEXT NOT NULL,
+            	PRIMARY KEY("${Const.COLOR_ID}" AUTOINCREMENT)
+            );
         """.trimIndent()
 
-
-
         val sql5 = """
-            CREATE TABLE if not exists "relation_seat_staff" (
-            	"relation_seat_staff_id"	INTEGER NOT NULL,
-            	"seat_id"	INTEGER NOT NULL,
-            	"staff_id"	INTEGER NOT NULL,
-            	PRIMARY KEY("relation_seat_staff_id" AUTOINCREMENT)
-            )
+            CREATE TABLE if not exists "${Const.RELATION_SEAT_STAFF_TBL_NAME}" (
+            	"${Const.RELATION_SEAT_STAFF_ID}" INTEGER NOT NULL,
+            	"${Const.SEAT_ID}" INTEGER NOT NULL,
+            	"${Const.STAFF_ID}" INTEGER NOT NULL,
+            	PRIMARY KEY("${Const.RELATION_SEAT_STAFF_ID}" AUTOINCREMENT)
+            );
         """.trimIndent()
 
         val sql6 = """
-            CREATE TABLE if not exists "relation_staff_project" (
-            	"relation_staff_project_id"	INTEGER NOT NULL,
-            	"staff_id"	INTEGER NOT NULL,
-            	"project_id"	INTEGER NOT NULL,
-            	PRIMARY KEY("relation_staff_project_id" AUTOINCREMENT)
-            )
+            CREATE TABLE if not exists "${Const.RELATION_STAFF_PROJECT_TBL_NAME}" (
+            	"${Const.RELATION_STAFF_PROJECT_ID}"	INTEGER NOT NULL,
+            	"${Const.STAFF_ID}"	INTEGER NOT NULL,
+            	"${Const.PROJECT_ID}" INTEGER NOT NULL,
+            	PRIMARY KEY("${Const.RELATION_STAFF_PROJECT_ID}" AUTOINCREMENT)
+            );
         """.trimIndent()
 
-
         val sql7 = """
-            CREATE TABLE if not exists "relation_project_color" (
-            	"relation_project_color_id"	INTEGER NOT NULL,
-            	"project_id"	INTEGER NOT NULL,
-            	"color_id"	INTEGER NOT NULL,
-            	PRIMARY KEY("relation_project_color_id" AUTOINCREMENT)
-            )
+            CREATE TABLE if not exists "${Const.RELATION_PROJECT_COLOR_TBL_NAME}" (
+            	"${Const.RELATION_PROJECT_COLOR_ID}" INTEGER NOT NULL,
+            	"${Const.PROJECT_ID}" INTEGER NOT NULL,
+            	"${Const.COLOR_ID}"	INTEGER NOT NULL,
+            	PRIMARY KEY("${Const.RELATION_PROJECT_COLOR_ID}" AUTOINCREMENT)
+            );
         """.trimIndent()
 
         db?.execSQL(sql1)
@@ -94,7 +96,9 @@ class SeatChangeSQLiteOpenHelper(
         db?.execSQL(sql7)
     }
 
-
+    /**
+     * DBのバージョンアップ時
+     */
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
     }
