@@ -55,24 +55,66 @@ class DbManager(context: Context) {
     }
 
     /**
-     * 席替画面：update
+     * 席替画面：put
      */
-    fun getSeatStaffModels(seatChangeModelList: List<SeatChangeModel>): Int {
+    fun putSeatStaffModels(seatChangeModelList: List<SeatChangeModel>): Int {
 
         return 0
     }
 
     /**
-     * 案件設定画面：update
+     * 案件設定画面：put
      */
-    fun updateStaffProjectModels(projectConfigModelList: List<ProjectConfigModel>): Int {
+    fun putStaffProjectModels(projectConfigModelList: List<ProjectConfigModel>): Int {
         return 0
     }
 
     /**
-     * 色設定画面：update
+     * 色設定画面：put
      */
-    fun updateProjectColorModels(): Int {
+    fun putProjectColorModels(): Int {
+        return 0
+    }
+
+    /**
+     * 席替画面：post
+     */
+    fun postSeatStaffModels(seatChangeModelList: List<SeatChangeModel>): Int {
+        return 0
+    }
+
+    /**
+     * 案件設定画面：post
+     */
+    fun postStaffProjectModels(projectConfigModelList: List<ProjectConfigModel>): Int {
+        return 0
+    }
+
+    /**
+     * 色設定画面：post
+     */
+    fun postProjectColorModels(): Int {
+        return 0
+    }
+
+    /**
+     * 席替画面：delete
+     */
+    fun deleteSeatStaffModels(seatChangeModelList: List<SeatChangeModel>): Int {
+        return 0
+    }
+
+    /**
+     * 案件設定画面：delete
+     */
+    fun deleteStaffProjectModels(projectConfigModelList: List<ProjectConfigModel>): Int {
+        return 0
+    }
+
+    /**
+     * 色設定画面：delete
+     */
+    fun deleteProjectColorModels(): Int {
         return 0
     }
 

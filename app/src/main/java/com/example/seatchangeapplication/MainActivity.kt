@@ -23,9 +23,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
-
-        var dbManager = DbManager(applicationContext);
-
     }
 
     override fun onResume() {
