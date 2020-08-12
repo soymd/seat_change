@@ -97,10 +97,10 @@ class SeatChangeSQLiteOpenHelper(
     }
 
     /**
-     * DBのバージョンアップ時
+     * DBのバージョンアップ時に呼びされる
      */
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
+        // 特に実装しない
     }
 
 

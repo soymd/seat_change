@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.seatchangeapplication.Const
 import com.example.seatchangeapplication.SeatChangeSQLiteOpenHelper
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
+import com.example.seatchangeapplication.dto.RelationProjectColor
+import com.example.seatchangeapplication.dto.RelationSeatStaff
+import com.example.seatchangeapplication.dto.RelationStaffProject
 import com.example.seatchangeapplication.projectconfig.ProjectConfigModel
 import com.example.seatchangeapplication.seatchange.SeatChangeModel
 
@@ -118,4 +121,40 @@ class DbManager(context: Context) {
         return 0
     }
 
+    /**
+     * 関係性IDからrelation_seat_staffを引き当てる
+     */
+    private fun getRelationSeatStaff(relationId: Int): RelationSeatStaff {
+        return RelationSeatStaff.from()
+    }
+
+    /**
+     * 関係性IDからrelation_staff_projectを引き当てる
+     */
+    private fun getRelationStaffProject(relationId: Int): RelationStaffProject {
+        return RelationStaffProject.from()
+    }
+
+    /**
+     * 関係性IDからrelation_project_colorを引き当てる
+     */
+    private fun getRelationProjectColor(relationId: Int): RelationProjectColor {
+        return RelationProjectColor.from()
+    }
+
+
+    private fun doWithTransaction(action: () -> Int): Int {
+        // 全件検索などで使用する想定
+        return 0;
+    }
+
+    private fun <T> doWithTransaction(action: (Int) -> T): T? {
+        // 1件検索などで使用する想定
+        return null;
+    }
+
+    private fun <T> doWithTransaction(action: (T) -> Int): Int {
+        // 追加, 更新, 削除などで使用する想定
+        return 0;
+    }
 }
