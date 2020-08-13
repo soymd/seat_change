@@ -3,6 +3,7 @@ package com.example.seatchangeapplication.manager
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.seatchangeapplication.Const
 import com.example.seatchangeapplication.SeatChangeSQLiteOpenHelper
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
@@ -117,7 +118,7 @@ class DbManager(context: Context) {
     /**
      * 色設定画面：delete
      */
-    fun deleteProjectColorModels(): Int {
+    fun deleteProjectColorModels(colorConfigModelList: List<ColorConfigModel>): Int {
         return 0
     }
 
@@ -147,12 +148,12 @@ class DbManager(context: Context) {
         return 0;
     }
 
-    private fun <T> doWithTransaction(action: (Int) -> T): T? {
+    private fun <T> doWithTransaction(action: (Int) -> T, it: Int): T? {
         // 1件検索などで使用する想定
         return null;
     }
 
-    private fun <T> doWithTransaction(action: (T) -> Int): Int {
+    private fun <T> doWithTransaction(action: (T) -> Int, it: T): Int {
         // 追加, 更新, 削除などで使用する想定
         return 0;
     }
