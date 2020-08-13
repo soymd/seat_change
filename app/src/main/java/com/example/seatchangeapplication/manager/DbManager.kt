@@ -21,8 +21,8 @@ class DbManager(context: Context) {
     private var mDb: SQLiteDatabase
 
     init {
-        var mDbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null,1)
-        mDb = mDbHelper.writableDatabase
+        var dbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null,1)
+        mDb = dbHelper.writableDatabase
     }
 
     /**
