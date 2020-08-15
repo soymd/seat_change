@@ -13,4 +13,9 @@ class MainViewModel @Inject constructor(
         callMenuEvent.value = null
         println("menu called")
     }
+
+    fun count(): Int {
+        val temp = mainRepository.getHoge()
+        return temp.count()
+    }
 }
