@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.seatchangeapplication.databinding.FragmentColorConfigBinding
-import com.example.seatchangeapplication.di.DaggerApplicationGraph
-import com.example.seatchangeapplication.manager.DbManager
+import com.example.seatchangeapplication.di.SeatChangeApplication
 
 class ColorConfigFragment(
 
@@ -22,13 +21,7 @@ class ColorConfigFragment(
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentColorConfigBinding.inflate(inflater, container, false)
-
-        // val colorConfigRepositoryImpl = ColorConfigRepositoryImpl()
-        val dbManager = DbManager(requireContext())
-        val repository = ColorConfigRepositoryImpl(dbManager)
-
-        viewModel = ColorConfigViewModel(repository)
-//         viewModel = DaggerApplicationGraph.create().colorConfigViewModel()
+        viewModel = SeatChangeApplication.component.colorConfigViewModel()
         val list = viewModel.getColorList()
 
         binding.colorListView.adapter = ColorConfigAdapter(list, requireContext())
