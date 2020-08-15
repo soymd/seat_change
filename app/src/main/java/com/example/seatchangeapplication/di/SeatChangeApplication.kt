@@ -3,7 +3,7 @@ package com.example.seatchangeapplication.di
 import android.app.Application
 
 
-class AppAplication: Application() {
+class SeatChangeApplication: Application() {
     companion object {
         lateinit var component: ApplicationGraph private set
     }
