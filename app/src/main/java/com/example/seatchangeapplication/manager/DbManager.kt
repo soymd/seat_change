@@ -143,9 +143,9 @@ class DbManager(context: Context) {
         return RelationProjectColor.from()
     }
 
-    private fun doWithTransaction(action: () -> Int): Int {
+    private fun <T> doWithTransaction(action: () -> List<T>?): List<T>? {
         // 全件検索などで使用する想定
-        return 0;
+        return null;
     }
 
     private fun <T> doWithTransaction(action: (Int) -> T, it: Int): T? {
