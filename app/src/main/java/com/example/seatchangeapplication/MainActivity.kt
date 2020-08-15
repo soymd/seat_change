@@ -11,14 +11,14 @@ import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity @Inject constructor(private val viewModelFactory: ViewModelFactory) :
+class MainActivity :
     DaggerAppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private var appViewModelProviders: AppViewModelProviders = AppViewModelProviders()
 
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

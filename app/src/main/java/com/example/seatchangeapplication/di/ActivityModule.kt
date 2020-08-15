@@ -1,5 +1,8 @@
+import androidx.lifecycle.ViewModelProvider
 import com.example.seatchangeapplication.MainActivity
 import com.example.seatchangeapplication.di.MainModule
+import com.example.seatchangeapplication.di.ViewModelFactory
+import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
