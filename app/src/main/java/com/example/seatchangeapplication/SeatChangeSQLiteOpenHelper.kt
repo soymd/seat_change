@@ -46,7 +46,7 @@ class SeatChangeSQLiteOpenHelper(
         val sql3 = """
             CREATE TABLE if not exists "${Const.PROJECT_TBL_NAME}" (
                 "${Const.PROJECT_ID}" INTEGER NOT NULL,
-                "${Const.PROJECT_TBL_NAME}"	TEXT NOT NULL,
+                "${Const.PROJECT_NAME}"	TEXT NOT NULL,
                 PRIMARY KEY("${Const.PROJECT_ID}" AUTOINCREMENT)
             );
         """.trimIndent()
