@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.seatchangeapplication.databinding.FragmentColorConfigBinding
 import com.example.seatchangeapplication.di.DaggerApplicationGraph
 
@@ -28,6 +29,7 @@ class ColorConfigFragment(
         viewModel = DaggerApplicationGraph.create().colorConfigViewModel()
         val list = viewModel.getColorList()
 
+        binding.colorListView.layoutManager = LinearLayoutManager(requireContext())
         binding.colorListView.adapter = ColorConfigAdapter(list, requireContext())
 
         return binding.root
