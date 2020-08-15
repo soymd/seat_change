@@ -2,8 +2,11 @@ package com.example.seatchangeapplication
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val mainRepository: MainRepository
+) : ViewModel() {
     val callMenuEvent = MutableLiveData<Void>()
 
     fun callMenu() {

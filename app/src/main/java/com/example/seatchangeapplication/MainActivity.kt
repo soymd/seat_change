@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
-import com.example.seatchangeapplication.manager.DbManager
+import com.example.seatchangeapplication.di.ApplicationGraph
+import com.example.seatchangeapplication.di.DaggerApplicationGraph
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 
@@ -16,7 +17,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = MainViewModel()
+
+        viewModel = DaggerApplicationGraph.create().mainViewModel()
         binding.viewModel = viewModel
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
