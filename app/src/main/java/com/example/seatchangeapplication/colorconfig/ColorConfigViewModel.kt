@@ -9,6 +9,10 @@ class ColorConfigViewModel @Inject constructor(
         //return colorConfigRepositoryImpl.get()
         val model = ColorConfigModel.from()
         model.projectName = "fake"
+
+        colorConfigRepositoryImpl.get()
+
+
         return listOf(model)
     }
 }

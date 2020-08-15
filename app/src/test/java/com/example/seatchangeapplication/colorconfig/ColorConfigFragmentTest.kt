@@ -35,7 +35,7 @@
 //    @Before
 //    fun setUp() {
 //        mockViewModel = mockk()
-//        subject = ColorConfigFragment(mockViewModel)
+//        // subject = ColorConfigFragment(mockViewModel)
 //    }
 //
 //    @Test

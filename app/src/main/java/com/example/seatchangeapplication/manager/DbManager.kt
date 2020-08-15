@@ -12,11 +12,12 @@ import com.example.seatchangeapplication.dto.RelationSeatStaff
 import com.example.seatchangeapplication.dto.RelationStaffProject
 import com.example.seatchangeapplication.projectconfig.ProjectConfigModel
 import com.example.seatchangeapplication.seatchange.SeatChangeModel
+import javax.inject.Inject
 
 /**
  * DB操作機能を保持するクラス
  */
-class DbManager(context: Context) {
+class DbManager @Inject constructor (context: Context) {
 
     private var mDb: SQLiteDatabase
 
