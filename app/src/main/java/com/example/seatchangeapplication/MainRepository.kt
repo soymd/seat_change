@@ -1,8 +1,6 @@
 package com.example.seatchangeapplication
 
-import javax.inject.Inject
-
-class MainRepository @Inject constructor() {
+class MainRepository {
 
     fun getHoge(): String {
         return "hoge"
