@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository
-) : ViewModel() {
+
+class MainViewModel @Inject constructor(val repository: MainRepository) : ViewModel() {
+
     val callMenuEvent = MutableLiveData<Void>()
 
     fun callMenu() {
@@ -14,8 +14,7 @@ class MainViewModel @Inject constructor(
         println("menu called")
     }
 
-    fun count(): Int {
-        val temp = mainRepository.getHoge()
-        return temp.count()
+    fun countGreeting(): Int {
+        return repository.getGreeting().count()
     }
 }

@@ -3,9 +3,8 @@ package com.example.seatchangeapplication
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertThat
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 
 class MainViewModelTest {
@@ -20,9 +19,9 @@ class MainViewModelTest {
 
     @Test
     fun foo() {
-        every { mockMainRepository.getHoge() } returns "hogehoge"
+        every { mockMainRepository.getGreeting() } returns "hogehoge"
 
-        val actural = subject.count()
+        val actural = subject.countGreeting()
         val expected = 8
 
         assertThat(actural, equalTo(expected))

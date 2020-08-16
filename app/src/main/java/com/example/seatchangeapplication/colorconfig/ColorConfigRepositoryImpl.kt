@@ -2,14 +2,17 @@ package com.example.seatchangeapplication.colorconfig
 
 import com.example.seatchangeapplication.dto.Color
 import com.example.seatchangeapplication.dto.Project
+import com.example.seatchangeapplication.manager.DbManager
+import javax.inject.Inject
 
 /**
  * 色設定画面ロジック実装クラス
  */
-class ColorConfigRepositoryImpl: IColorConfigRepository {
+class ColorConfigRepositoryImpl @Inject constructor(private val dbManager: DbManager) :
+    IColorConfigRepository {
 
     override fun get(): List<ColorConfigModel> {
-        return listOf();
+        return dbManager.getProjectColorModels();
     }
 
     override fun put(colorConfigModel: List<ColorConfigModel>): Int {

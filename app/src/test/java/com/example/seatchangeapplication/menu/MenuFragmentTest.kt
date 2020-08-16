@@ -3,13 +3,21 @@ package com.example.seatchangeapplication.menu
 import android.widget.Button
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.runner.AndroidJUnit4
 import com.example.seatchangeapplication.MainActivity
 import com.example.seatchangeapplication.R
 import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
+//import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
 import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Assert.assertThat
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,6 +40,7 @@ class MenuFragmentTest {
     }
 
 
+    @Ignore
     @Test
     fun `ColorConfigButton押下でColorConfigFragment呼び出し`() {
         val activity =
@@ -47,7 +56,7 @@ class MenuFragmentTest {
 
         //TODO:以下のespressoテストではxmlのバインディング式でviewModelの関数を呼ぶボタンの
         // perform(click())が動いてない。
-/*        scenario = launchFragmentInContainer<MenuFragment>()
+        scenario = launchFragmentInContainer<MenuFragment>()
 
         //↓実行可能
         onView(withId(R.id.hogeButton)).perform(click())
@@ -60,6 +69,6 @@ class MenuFragmentTest {
         //実行不可
         onView(withId(R.id.colorConfigButton)).perform(click())
 //        onView(withId(R.id.seatChangeButton)).perform(click())
-//        onView(withId(R.id.projectConfigButton)).perform(click())*/
+//        onView(withId(R.id.projectConfigButton)).perform(click())
     }
 }

@@ -2,8 +2,6 @@ package com.example.seatchangeapplication.manager
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import com.example.seatchangeapplication.Const
 import com.example.seatchangeapplication.SeatChangeSQLiteOpenHelper
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
@@ -12,16 +10,17 @@ import com.example.seatchangeapplication.dto.RelationSeatStaff
 import com.example.seatchangeapplication.dto.RelationStaffProject
 import com.example.seatchangeapplication.projectconfig.ProjectConfigModel
 import com.example.seatchangeapplication.seatchange.SeatChangeModel
+import javax.inject.Inject
 
 /**
  * DB操作機能を保持するクラス
  */
-class DbManager(context: Context) {
+class DbManager @Inject constructor(context: Context) {
 
     private var mDb: SQLiteDatabase
 
     init {
-        var dbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null,1)
+        var dbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null, 1)
         mDb = dbHelper.writableDatabase
     }
 
@@ -30,7 +29,7 @@ class DbManager(context: Context) {
      */
     fun getSeatStaffModels(): List<SeatChangeModel> {
         var sql = """
-            
+
         """.trimIndent()
 
         return listOf()
@@ -41,7 +40,7 @@ class DbManager(context: Context) {
      */
     fun getStaffProjectModels(): List<ProjectConfigModel> {
         var sql = """
-            
+
         """.trimIndent()
 
         return listOf()
@@ -52,7 +51,7 @@ class DbManager(context: Context) {
      */
     fun getProjectColorModels(): List<ColorConfigModel> {
         var sql = """
-            
+
         """.trimIndent()
 
         return listOf()

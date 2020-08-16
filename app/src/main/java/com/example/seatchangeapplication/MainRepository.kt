@@ -1,9 +1,10 @@
 package com.example.seatchangeapplication
 
-class MainRepository {
+import javax.inject.Inject
 
-    fun getHoge(): String {
-        return "hoge"
+class MainRepository @Inject constructor() {
+
+    fun getGreeting(): String {
+        return "ハロー"
     }
-
 }
