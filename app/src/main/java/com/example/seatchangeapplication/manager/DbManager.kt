@@ -17,12 +17,12 @@ import javax.inject.Inject
 /**
  * DB操作機能を保持するクラス
  */
-class DbManager @Inject constructor (context: Context) {
+class DbManager @Inject constructor(context: Context) {
 
     private var mDb: SQLiteDatabase
 
     init {
-        var dbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null,1)
+        var dbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null, 1)
         mDb = dbHelper.writableDatabase
     }
 
@@ -31,7 +31,7 @@ class DbManager @Inject constructor (context: Context) {
      */
     fun getSeatStaffModels(): List<SeatChangeModel> {
         var sql = """
-            
+
         """.trimIndent()
 
         return listOf()
@@ -42,7 +42,7 @@ class DbManager @Inject constructor (context: Context) {
      */
     fun getStaffProjectModels(): List<ProjectConfigModel> {
         var sql = """
-            
+
         """.trimIndent()
 
         return listOf()
@@ -53,7 +53,7 @@ class DbManager @Inject constructor (context: Context) {
      */
     fun getProjectColorModels(): List<ColorConfigModel> {
         var sql = """
-            
+
         """.trimIndent()
 
         return listOf()

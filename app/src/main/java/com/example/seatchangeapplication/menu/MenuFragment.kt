@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.FragmentType
 import com.example.seatchangeapplication.R
 import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
+//import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
 import com.example.seatchangeapplication.databinding.FragmentMenuBinding
 import com.example.seatchangeapplication.projectconfig.ProjectConfigFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment

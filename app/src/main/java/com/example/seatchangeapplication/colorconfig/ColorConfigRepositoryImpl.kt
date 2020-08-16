@@ -9,7 +9,8 @@ import javax.inject.Inject
 /**
  * 色設定画面ロジック実装クラス
  */
-class ColorConfigRepositoryImpl @Inject constructor (val dbManager: DbManager): IColorConfigRepository {
+class ColorConfigRepositoryImpl @Inject constructor(private val dbManager: DbManager) :
+    IColorConfigRepository {
 
     override fun get(): List<ColorConfigModel> {
         return dbManager.getProjectColorModels();
