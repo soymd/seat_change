@@ -21,19 +21,19 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private var commuterViewModelProviders: SeatChangeViewModelProviders =
-        SeatChangeViewModelProviders()
+    private var viewModelProviders: SeatChangeViewModelProviders = SeatChangeViewModelProviders()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        // テスト時にViewModelをmockするための記述
         if (intent != null && intent.getSerializableExtra(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) != null) {
-            commuterViewModelProviders =
+            viewModelProviders =
                 intent.getSerializableExtra(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) as SeatChangeViewModelProviders
         }
-        viewModel =
-            commuterViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = viewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+
         binding.apply {
             viewModel = this@MainActivity.viewModel
         }
