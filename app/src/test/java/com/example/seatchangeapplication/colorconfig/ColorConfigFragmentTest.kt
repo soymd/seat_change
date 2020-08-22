@@ -15,7 +15,6 @@ import com.example.seatchangeapplication.di.SeatChangeViewModelProviders
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,26 +27,28 @@ import org.robolectric.annotation.Config
 @Config(sdk = [28])
 class ColorConfigFragmentTest {
     lateinit var subject: ColorConfigFragment
-    lateinit var mockViewModel: ColorConfigViewModel
     lateinit var mockSeatChangeViewModelProviders: SeatChangeViewModelProviders
     lateinit var mockViewModelProvider: ViewModelProvider
+    lateinit var viewModel: ColorConfigViewModel
+    lateinit var mockColorConfigRepository: ColorConfigRepositoryImpl
+
     lateinit var bundle: Bundle
 
     lateinit var fragmentManager: FragmentManager
 
     private lateinit var scenario: FragmentScenario<ColorConfigFragment>
 
-
     @Before
     fun setUp() {
-        mockViewModel = mockk(relaxed = true)
-
+        subject = ColorConfigFragment()
         mockSeatChangeViewModelProviders = mockk(relaxed = true)
         mockViewModelProvider = mockk(relaxed = true)
 
+        mockColorConfigRepository = mockk(relaxed = true)
+        viewModel = ColorConfigViewModel(mockColorConfigRepository)
+
         every { mockSeatChangeViewModelProviders.of(any(), any()) } returns mockViewModelProvider
-        every { mockViewModelProvider.get(ColorConfigViewModel::class.java) } returns mockViewModel
-        subject = ColorConfigFragment()
+        every { mockViewModelProvider.get(ColorConfigViewModel::class.java) } returns viewModel
 
         bundle = Bundle().apply {
             putSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key, mockSeatChangeViewModelProviders)
@@ -59,21 +60,10 @@ class ColorConfigFragmentTest {
     }
 
     @Test
-    fun `injection test`() {
-        every { mockViewModel.greeting() } returns "hello"
-
-        fragmentManager.beginTransaction().add(subject, null).commit()
-
-        val actual = subject.getGreeting()
-
-        assertThat(actual, equalTo("hello"))
-    }
-
-    @Test
     fun `onCreateView recyclerViewの一覧にプロジェクト名が表示される`() {
         val model = ColorConfigModel.from()
         model.projectName = "fake-project"
-        every { mockViewModel.getColorList() } returns listOf(model)
+        every { mockColorConfigRepository.get() } returns listOf(model)
 
         scenario = launchFragmentInContainer<ColorConfigFragment>(
             bundle,
