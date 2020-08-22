@@ -171,7 +171,7 @@ class DbManager @Inject constructor(context: Context) {
     private inline fun <reified T : Any> getContentValue(dto: T): ContentValues? {
         var contentValues = ContentValues()
         T::class.memberProperties.forEach { param ->
-            contentValues.castAndPut(param.name.toSnakeCase(true), param.get(dto))
+            contentValues.castAndPut(param.name.toSnakeCase(false), param.get(dto))
         }
         return contentValues
     }
