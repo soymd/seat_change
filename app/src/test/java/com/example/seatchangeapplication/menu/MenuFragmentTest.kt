@@ -78,18 +78,11 @@ class MenuFragmentTest {
     fun `espresso ColorConfigButton押下でColorConfigFragment呼び出し`() {
         scenario = launchFragmentInContainer<MenuFragment>()
 
-        // ↓Fragmentを呼び出さないボタンは実行可能
-        onView(withId(R.id.hogeButton)).perform(click())
-
         // 可視状態にはなっている模様
         onView(withId(R.id.colorConfigButton)).check(matches(isDisplayed()))
-        onView(withId(R.id.seatChangeButton)).check(matches(isDisplayed()))
-        onView(withId(R.id.projectConfigButton)).check(matches(isDisplayed()))
 
         // 実行不可
         onView(withId(R.id.colorConfigButton)).perform(click())
-        onView(withId(R.id.seatChangeButton)).perform(click())
-        onView(withId(R.id.projectConfigButton)).perform(click())
     }
 
     @Test

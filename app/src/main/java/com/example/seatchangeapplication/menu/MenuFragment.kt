@@ -22,7 +22,7 @@ class MenuFragment : DaggerFragment() {
     private lateinit var binding: FragmentMenuBinding
     private lateinit var viewModel: MenuViewModel
 
-    private var SeatChangeViewModelProviders: SeatChangeViewModelProviders =
+    private var seatChangeViewModelProviders: SeatChangeViewModelProviders =
         SeatChangeViewModelProviders()
 
     @Inject
@@ -34,10 +34,10 @@ class MenuFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (arguments != null && arguments?.getSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) != null) {
-            SeatChangeViewModelProviders =
+            seatChangeViewModelProviders =
                 arguments?.getSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) as SeatChangeViewModelProviders
         }
-        viewModel = SeatChangeViewModelProviders.of(requireActivity(), viewModelFactory)
+        viewModel = seatChangeViewModelProviders.of(requireActivity(), viewModelFactory)
             .get(MenuViewModel::class.java)
 
         binding = FragmentMenuBinding.inflate(inflater, container, false)

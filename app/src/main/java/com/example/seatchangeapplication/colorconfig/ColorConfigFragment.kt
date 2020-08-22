@@ -20,7 +20,7 @@ class ColorConfigFragment @Inject constructor() : DaggerFragment() {
     lateinit var binding: FragmentColorConfigBinding
     lateinit var viewModel: ColorConfigViewModel
 
-    private var SeatChangeViewModelProviders: SeatChangeViewModelProviders =
+    private var seatChangeViewModelProviders: SeatChangeViewModelProviders =
         SeatChangeViewModelProviders()
 
     @Inject
@@ -35,11 +35,11 @@ class ColorConfigFragment @Inject constructor() : DaggerFragment() {
             .d("${this.javaClass.simpleName}: ${object {}.javaClass.enclosingMethod.name}")
 
         if (arguments != null && arguments?.getSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) != null) {
-            SeatChangeViewModelProviders =
+            seatChangeViewModelProviders =
                 arguments?.getSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) as SeatChangeViewModelProviders
         }
 
-        viewModel = SeatChangeViewModelProviders.of(requireActivity(), viewModelFactory)
+        viewModel = seatChangeViewModelProviders.of(requireActivity(), viewModelFactory)
             .get(ColorConfigViewModel::class.java)
 
         binding = FragmentColorConfigBinding.inflate(inflater, container, false)
