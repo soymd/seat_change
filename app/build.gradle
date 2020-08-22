@@ -29,7 +29,7 @@ android {
     }
 
 
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 
@@ -68,9 +68,6 @@ dependencies {
 
     //testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
 
-    // RxIdler(test for espresso with rxjava)
-    //testImplementation 'com.squareup.rx.idler:rx2-idler:0.11.0'
-
     // https://qiita.com/ko2ic/items/35d077499734bfd777fc
     def dagger_version = "2.25"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
@@ -84,5 +81,8 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+
+    //Log
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
 }

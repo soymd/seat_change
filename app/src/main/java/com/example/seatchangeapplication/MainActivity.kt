@@ -5,13 +5,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.common.ArgumentKeys
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
+import com.example.seatchangeapplication.di.MainApplication.Companion.DEBUG_TAG
 import com.example.seatchangeapplication.di.SeatChangeViewModelProviders
 import com.example.seatchangeapplication.di.ViewModelFactory
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 import dagger.android.support.DaggerAppCompatActivity
+import timber.log.Timber
 import javax.inject.Inject
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -25,6 +28,8 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.tag(DEBUG_TAG)
+            .d("${this.javaClass.simpleName}: ${object {}.javaClass.enclosingMethod.name}")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // テスト時にViewModelをmockするための記述
