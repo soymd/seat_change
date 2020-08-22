@@ -1,30 +1,18 @@
 package com.example.seatchangeapplication
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.common.ArgumentKeys
-import com.example.seatchangeapplication.common.toSnakeCase
 import com.example.seatchangeapplication.databinding.ActivityMainBinding
 import com.example.seatchangeapplication.di.MainApplication.Companion.DEBUG_TAG
 import com.example.seatchangeapplication.di.SeatChangeViewModelProviders
 import com.example.seatchangeapplication.di.ViewModelFactory
-import com.example.seatchangeapplication.dto.Color
-import com.example.seatchangeapplication.dto.IDto
-import com.example.seatchangeapplication.manager.DbManager
-import com.example.seatchangeapplication.manager.DbOperationException
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 import dagger.android.support.DaggerAppCompatActivity
-<<<<<<< HEAD
-import java.lang.Exception
-=======
 import timber.log.Timber
->>>>>>> c4081a06af1990f5143d6c18484cc6188962a1ff
 import javax.inject.Inject
-import kotlin.reflect.full.memberProperties
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainActivity : DaggerAppCompatActivity() {

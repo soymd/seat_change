@@ -82,12 +82,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
-<<<<<<< HEAD
-    // reflection
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-=======
     //Log
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
->>>>>>> c4081a06af1990f5143d6c18484cc6188962a1ff
+    // reflection
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
