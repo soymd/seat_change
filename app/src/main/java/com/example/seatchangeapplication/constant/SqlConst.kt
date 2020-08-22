@@ -1,6 +1,9 @@
-package com.example.seatchangeapplication
+package com.example.seatchangeapplication.constant
 
-class Const {
+/**
+ * 定数クラス
+ */
+class SqlConst {
 
     companion object {
         // DB名
@@ -34,6 +37,5 @@ class Const {
         const val RELATION_STAFF_PROJECT_ID = "relation_staff_project_id"
         // relation_project_colorテーブル
         const val RELATION_PROJECT_COLOR_ID = "relation_project_color_id"
-
     }
 }

@@ -1,5 +1,6 @@
 package com.example.seatchangeapplication.dto
 
+import android.content.ContentValues
+
 interface IDto {
-    public fun isValid(): Boolean
 }

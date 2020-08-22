@@ -1,16 +1,17 @@
 package com.example.seatchangeapplication.manager
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.example.seatchangeapplication.Const
-import com.example.seatchangeapplication.SeatChangeSQLiteOpenHelper
+import com.example.seatchangeapplication.constant.ErrorConst
+import com.example.seatchangeapplication.constant.SqlConst
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
-import com.example.seatchangeapplication.dto.RelationProjectColor
-import com.example.seatchangeapplication.dto.RelationSeatStaff
-import com.example.seatchangeapplication.dto.RelationStaffProject
+import com.example.seatchangeapplication.common.toSnakeCase
+import com.example.seatchangeapplication.dto.*
 import com.example.seatchangeapplication.projectconfig.ProjectConfigModel
 import com.example.seatchangeapplication.seatchange.SeatChangeModel
 import javax.inject.Inject
+import kotlin.reflect.full.memberProperties
 
 /**
  * DB操作機能を保持するクラス
@@ -18,9 +19,16 @@ import javax.inject.Inject
 class DbManager @Inject constructor(context: Context) {
 
     private var mDb: SQLiteDatabase
+    private val TAG = this::class.simpleName.toString()
 
     init {
-        var dbHelper = SeatChangeSQLiteOpenHelper(context, Const.DB_NAME, null, 1)
+        var dbHelper =
+            SeatChangeSQLiteOpenHelper(
+                context,
+                SqlConst.DB_NAME,
+                null,
+                1
+            )
         mDb = dbHelper.writableDatabase
     }
 
@@ -156,4 +164,30 @@ class DbManager @Inject constructor(context: Context) {
         // 追加, 更新, 削除などで使用する想定
         return 0;
     }
+
+    /**
+     * ContentValuesに任意のDTOのkey/valueを格納する
+     */
+    private inline fun <reified T : Any> getContentValue(dto: T): ContentValues? {
+        var contentValues = ContentValues()
+        T::class.memberProperties.forEach { param ->
+            contentValues.castAndPut(param.name.toSnakeCase(true), param.get(dto))
+        }
+        return contentValues
+    }
+
+    /**
+     * ContentValues#put に Any? を押し込めるようにした拡張関数。
+     * nullの時はDbOperationExceptionをthrowする。
+     */
+    private fun ContentValues.castAndPut(key: String, v: Any?) {
+        when (v) {
+            is Int -> this.put(key, v)
+            is Boolean -> this.put(key, v)
+            is String -> this.put(key, v)
+            else -> throw DbOperationException(ErrorConst.INVALID_DTO_TYPE)
+        }
+    }
 }
+
+class DbOperationException(message: String): Exception(message)
