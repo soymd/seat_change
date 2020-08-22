@@ -35,32 +35,36 @@ class MainActivityTest {
 
     lateinit var mockSeatChangeViewModelProviders: SeatChangeViewModelProviders
     lateinit var mockViewModelProvider: ViewModelProvider
-    lateinit var mockViewModel: MainViewModel
-    lateinit var intent: Intent
-    lateinit var controller: ActivityController<MainActivity>
-
-    lateinit var viewModel: MainViewModel
     lateinit var mockRepository: MainRepository
+    lateinit var viewModel: MainViewModel
+
+    lateinit var intent: Intent
+
+    lateinit var controller: ActivityController<MainActivity>
+    lateinit var activityTestRule: ActivityTestRule<MainActivity>
 
     @Before
     fun setUp() {
         println("セットアップ開始")
         mockSeatChangeViewModelProviders = mockk(relaxed = true)
         mockViewModelProvider = mockk(relaxed = true)
+        every { mockSeatChangeViewModelProviders.of(any(), any()) } returns mockViewModelProvider
 
         mockRepository = mockk(relaxed = true)
         viewModel = MainViewModel(mockRepository)
 
-        // mockViewModelを返却するパターン
-        mockViewModel = mockk(relaxed = true)
-        every { mockSeatChangeViewModelProviders.of(any(), any()) } returns mockViewModelProvider
-        every { mockViewModelProvider.get(MainViewModel::class.java) } returns mockViewModel
+        // 本物のviewModelを返却 mockを使いたい場合は要上書き
+        every { mockViewModelProvider.get(MainViewModel::class.java) } returns viewModel
+
         intent = Intent().apply {
             putExtra(ArgumentKeys.VIEW_MODEL_PROVIDERS.key, mockSeatChangeViewModelProviders)
         }
 
-        // robolectricテスト用controllerを作成 espressoの場合は使わない
+        // activity起動用controllerを作成 espressoの場合は使わない
         controller = Robolectric.buildActivity(MainActivity::class.java, intent)
+
+        // espressoテスト用Rule
+        activityTestRule = ActivityTestRule(MainActivity::class.java)
         println("セットアップ終了")
     }
 
@@ -77,9 +81,6 @@ class MainActivityTest {
 
     @Test
     fun `menuボタン押下で、MenuFragmentが呼ばれる`() {
-        // mockではないviewModelを返却
-        every { mockViewModelProvider.get(MainViewModel::class.java) } returns viewModel
-
         // callMenuEventのobserverを定義
         val observer = mockk<Observer<Void>>(relaxed = true)
         viewModel.callMenuEvent.observeForever(observer)
@@ -100,12 +101,8 @@ class MainActivityTest {
 
     @Test
     fun `espresso版 menuボタン押下で、MenuFragmentが呼ばれる`() {
-        // mockではないviewModelを返却
-        every { mockViewModelProvider.get(MainViewModel::class.java) } returns viewModel
-
         // espressoテストを実行する場合は以下のようにactivityを起動
-        val activityRule = ActivityTestRule(MainActivity::class.java)
-        activityRule.launchActivity(intent)
+        activityTestRule.launchActivity(intent)
 
         // callMenuEventのobserverを定義
         val observer = mockk<Observer<Void>>(relaxed = true)
