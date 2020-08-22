@@ -1,5 +1,6 @@
 package com.example.seatchangeapplication.menu
 
+//import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.FragmentType
 import com.example.seatchangeapplication.R
 import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
-//import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
 import com.example.seatchangeapplication.databinding.FragmentMenuBinding
 import com.example.seatchangeapplication.projectconfig.ProjectConfigFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
@@ -23,7 +23,6 @@ class MenuFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println("MenuFragment - onCreateView")
         binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         viewModel = MenuViewModel()
@@ -46,6 +45,5 @@ class MenuFragment : Fragment() {
             .replace(R.id.fragmentRoot, fragment)
             .addToBackStack(null)
             .commit()
-        println("${type.name} Fragment called")
     }
 }

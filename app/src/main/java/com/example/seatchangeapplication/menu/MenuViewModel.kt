@@ -15,6 +15,5 @@ class MenuViewModel : ViewModel() {
     fun callFragment(type: FragmentType) {
         callFragmentEvent.value = type
         countEvent.value = countEvent.value?.plus(1)
-        println("count is ${countEvent.value}")
     }
 }

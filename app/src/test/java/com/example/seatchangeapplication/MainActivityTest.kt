@@ -85,7 +85,7 @@ class MainActivityTest {
         // observerの値が変更されたことを確認
         verify { observer.onChanged(null) }
 
-        // 以下の検証が通るなら↑のverifyは不要？
+        // 以下の検証が通るなら↑のobserverとverifyは不要かも
         val fragment = subject.supportFragmentManager.fragments.last()
         assertThat(fragment, instanceOf(MenuFragment::class.java))
     }

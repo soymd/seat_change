@@ -66,6 +66,5 @@ class MainActivity : DaggerAppCompatActivity() {
             .replace(R.id.menuFragmentRoot, menuFragment)
             .addToBackStack(null)
             .commit()
-        println("MenuFragment called")
     }
 }
