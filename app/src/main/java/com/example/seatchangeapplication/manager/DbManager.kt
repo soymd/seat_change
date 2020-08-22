@@ -170,8 +170,12 @@ class DbManager @Inject constructor(context: Context) {
      */
     private inline fun <reified T : Any> getContentValue(dto: T): ContentValues? {
         var contentValues = ContentValues()
-        T::class.memberProperties.forEach { param ->
-            contentValues.castAndPut(param.name.toSnakeCase(false), param.get(dto))
+        try {
+            T::class.memberProperties.forEach { param ->
+                contentValues.castAndPut(param.name.toSnakeCase(false), param.get(dto))
+            }
+        } catch (e: DbOperationException) {
+            return null
         }
         return contentValues
     }
