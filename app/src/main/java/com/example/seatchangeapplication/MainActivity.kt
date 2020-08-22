@@ -47,10 +47,6 @@ class MainActivity : DaggerAppCompatActivity() {
         })
     }
 
-    fun test(): Int {
-        return viewModel.countGreeting()
-    }
-
     override fun onResume() {
         super.onResume()
         // 画面初期表示, TODO: 共通化

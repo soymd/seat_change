@@ -19,7 +19,7 @@ class MainViewModelTest {
 
     @Test
     fun foo() {
-        every { mockMainRepository.getGreeting() } returns "hogehoge"
+        every { mockMainRepository.mockOrNot() } returns "hogehoge"
 
         val actural = subject.countGreeting()
         val expected = 8

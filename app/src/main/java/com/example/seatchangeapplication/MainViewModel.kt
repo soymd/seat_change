@@ -16,6 +16,6 @@ class MainViewModel @Inject constructor(val repository: MainRepository) : ViewMo
     }
 
     fun countGreeting(): Int {
-        return repository.getGreeting().count()
+        return repository.mockOrNot().count()
     }
 }
