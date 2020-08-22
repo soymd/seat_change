@@ -1,6 +1,7 @@
 package com.example.seatchangeapplication.colorconfig
 
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +17,6 @@ import io.mockk.mockk
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -31,8 +31,12 @@ class ColorConfigFragmentTest {
     lateinit var mockViewModel: ColorConfigViewModel
     lateinit var mockSeatChangeViewModelProviders: SeatChangeViewModelProviders
     lateinit var mockViewModelProvider: ViewModelProvider
+    lateinit var bundle: Bundle
+
+    lateinit var fragmentManager: FragmentManager
 
     private lateinit var scenario: FragmentScenario<ColorConfigFragment>
+
 
     @Before
     fun setUp() {
@@ -44,17 +48,20 @@ class ColorConfigFragmentTest {
         every { mockSeatChangeViewModelProviders.of(any(), any()) } returns mockViewModelProvider
         every { mockViewModelProvider.get(ColorConfigViewModel::class.java) } returns mockViewModel
         subject = ColorConfigFragment()
+
+        bundle = Bundle().apply {
+            putSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key, mockSeatChangeViewModelProviders)
+        }
+        subject.arguments = bundle
+        fragmentManager =
+            Robolectric.buildActivity(MainActivity::class.java).create().start().resume()
+                .get().supportFragmentManager
     }
 
     @Test
-    fun viewModelFactoryTest() {
+    fun `injection test`() {
         every { mockViewModel.greeting() } returns "hello"
 
-        subject.arguments = Bundle().apply {
-            putSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key, mockSeatChangeViewModelProviders)
-        }
-        val fragmentManager = Robolectric.buildActivity(MainActivity::class.java)
-            .create().start().resume().get().supportFragmentManager
         fragmentManager.beginTransaction().add(subject, null).commit()
 
         val actual = subject.getGreeting()
@@ -62,24 +69,22 @@ class ColorConfigFragmentTest {
         assertThat(actual, equalTo("hello"))
     }
 
-
-    @Ignore
     @Test
-    fun espresso() {
-        // TODO: viewModelのmock方法
-        scenario = launchFragmentInContainer<ColorConfigFragment>(
-            null,
-            R.style.AppTheme,
-            null
-        )
+    fun `onCreateView recyclerViewの一覧にプロジェクト名が表示される`() {
         val model = ColorConfigModel.from()
         model.projectName = "fake-project"
         every { mockViewModel.getColorList() } returns listOf(model)
 
+        scenario = launchFragmentInContainer<ColorConfigFragment>(
+            bundle,
+            R.style.AppTheme,
+            null
+        )
+
         onView(
             allOf(
                 withId(R.id.colorListView),
-                withText("fake-project")
+                hasDescendant(withText("fake-project"))
             )
         ).check(matches(isDisplayed()))
     }
