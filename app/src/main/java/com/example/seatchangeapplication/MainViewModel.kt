@@ -1,5 +1,6 @@
 package com.example.seatchangeapplication
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
@@ -7,11 +8,11 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(val repository: MainRepository) : ViewModel() {
 
-    val callMenuEvent = MutableLiveData<Void>()
+    private val _callMenuEvent = MutableLiveData<Void>()
+    val callMenuEvent: LiveData<Void> = _callMenuEvent
 
     fun callMenu() {
-        callMenuEvent.value = null
-        println("menu called")
+        _callMenuEvent.value = null
     }
 
     fun countGreeting(): Int {
