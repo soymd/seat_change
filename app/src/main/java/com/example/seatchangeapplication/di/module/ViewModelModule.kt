@@ -6,6 +6,7 @@ import com.example.seatchangeapplication.MainViewModel
 import com.example.seatchangeapplication.colorconfig.ColorConfigViewModel
 import com.example.seatchangeapplication.di.ViewModelFactory
 import com.example.seatchangeapplication.di.ViewModelKey
+import com.example.seatchangeapplication.menu.MenuViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -26,6 +27,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ColorConfigViewModel::class)
     abstract fun bindColorConfigViewModel(viewModel: ColorConfigViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MenuViewModel::class)
+    abstract fun bindMenuViewModel(viewModel: MenuViewModel): ViewModel
 }
 
 //

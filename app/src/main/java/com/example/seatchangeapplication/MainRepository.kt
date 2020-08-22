@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor() {
 
-    fun getGreeting(): String {
-        return "ハロー"
+    fun mockOrNot(): String {
+        return "本物"
     }
 }
