@@ -43,6 +43,7 @@ class ColorConfigFragment @Inject constructor() : DaggerFragment() {
             .get(ColorConfigViewModel::class.java)
 
         binding = FragmentColorConfigBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
         val list = viewModel.getColorList()
 
         binding.colorListView.adapter = ColorConfigAdapter(list, requireContext())

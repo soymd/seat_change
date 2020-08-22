@@ -5,27 +5,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.seatchangeapplication.FragmentType
 import com.example.seatchangeapplication.R
 import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
+import com.example.seatchangeapplication.common.ArgumentKeys
 import com.example.seatchangeapplication.databinding.FragmentMenuBinding
+import com.example.seatchangeapplication.di.SeatChangeViewModelProviders
 import com.example.seatchangeapplication.projectconfig.ProjectConfigFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class MenuFragment : Fragment() {
+class MenuFragment : DaggerFragment() {
     private lateinit var binding: FragmentMenuBinding
     private lateinit var viewModel: MenuViewModel
+
+    private var SeatChangeViewModelProviders: SeatChangeViewModelProviders =
+        SeatChangeViewModelProviders()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (arguments != null && arguments?.getSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) != null) {
+            SeatChangeViewModelProviders =
+                arguments?.getSerializable(ArgumentKeys.VIEW_MODEL_PROVIDERS.key) as SeatChangeViewModelProviders
+        }
+        viewModel = SeatChangeViewModelProviders.of(requireActivity(), viewModelFactory)
+            .get(MenuViewModel::class.java)
+
         binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        viewModel = MenuViewModel()
         binding.viewModel = viewModel
 
         viewModel.callFragmentEvent.observe(viewLifecycleOwner, Observer {
