@@ -48,8 +48,8 @@ class MainActivityTest {
         println(intent.extras!!.containsKey(ArgumentKeys.VIEW_MODEL_PROVIDERS.key))
 
         subject =
-            Robolectric.buildActivity(MainActivity::class.java, intent).create().start().resume()
-                .get()
+            Robolectric.buildActivity(MainActivity::class.java, intent)
+                .create().start().resume().get()
 
         val actual = subject.test()
         assertThat(actual, equalTo(999))

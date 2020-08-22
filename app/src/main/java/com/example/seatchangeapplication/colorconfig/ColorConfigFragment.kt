@@ -49,4 +49,8 @@ class ColorConfigFragment @Inject constructor() : DaggerFragment() {
 
         return binding.root
     }
+
+    fun getGreeting(): String {
+        return viewModel.greeting()
+    }
 }

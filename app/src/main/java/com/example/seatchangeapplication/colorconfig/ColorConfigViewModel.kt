@@ -15,4 +15,8 @@ class ColorConfigViewModel @Inject constructor(
 
         return listOf(model)
     }
+
+    fun greeting(): String {
+        return "hogehoge"
+    }
 }
