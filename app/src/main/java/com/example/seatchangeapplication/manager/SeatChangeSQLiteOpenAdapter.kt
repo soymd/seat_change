@@ -69,7 +69,6 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
                 cursor.moveToFirst()
             }
         }
-
         return listOf()
     }
 

@@ -84,6 +84,7 @@ dependencies {
 
     //Log
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
     // reflection
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }

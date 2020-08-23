@@ -48,10 +48,6 @@ class MainActivity : DaggerAppCompatActivity() {
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
-
-        val adapter = SeatChangeSQLiteOpenAdapter(applicationContext)
-        val models = adapter.getProjectColorModels()
-
     }
 
     override fun onResume() {
