@@ -2,7 +2,7 @@ package com.example.seatchangeapplication.colorconfig
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.example.seatchangeapplication.manager.DbManager
+import com.example.seatchangeapplication.manager.SeatChangeSQLiteOpenAdapter
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.CoreMatchers.equalTo
@@ -17,21 +17,21 @@ import org.robolectric.annotation.Config
 @Config(sdk = [28])
 class ColorConfigRepositoryImplTest {
     lateinit var subject: ColorConfigRepositoryImpl
-    lateinit var mockDbManager: DbManager
+    lateinit var mockDbAdapter: SeatChangeSQLiteOpenAdapter
     lateinit var context: Context
 
     @Before
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
-        mockDbManager = mockk(relaxed = true)
-        subject = ColorConfigRepositoryImpl(mockDbManager)
+        mockDbAdapter = mockk(relaxed = true)
+        subject = ColorConfigRepositoryImpl(mockDbAdapter)
     }
 
     @Test
     fun get() {
         val model = ColorConfigModel.from()
         model.projectName = "hogehoge"
-        every { mockDbManager.getProjectColorModels() } returns listOf(model)
+        every { mockDbAdapter.getProjectColorModels() } returns listOf(model)
 
         val actual = subject.get()
         val expected = listOf(model)

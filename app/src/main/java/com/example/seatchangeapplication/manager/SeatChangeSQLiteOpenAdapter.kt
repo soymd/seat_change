@@ -3,11 +3,13 @@ package com.example.seatchangeapplication.manager
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.example.seatchangeapplication.constant.ErrorConst
-import com.example.seatchangeapplication.constant.SqlConst
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
 import com.example.seatchangeapplication.common.toSnakeCase
-import com.example.seatchangeapplication.dto.*
+import com.example.seatchangeapplication.constant.ErrorConst
+import com.example.seatchangeapplication.constant.SqlConst
+import com.example.seatchangeapplication.dto.RelationProjectColor
+import com.example.seatchangeapplication.dto.RelationSeatStaff
+import com.example.seatchangeapplication.dto.RelationStaffProject
 import com.example.seatchangeapplication.projectconfig.ProjectConfigModel
 import com.example.seatchangeapplication.seatchange.SeatChangeModel
 import javax.inject.Inject
@@ -179,6 +181,7 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
         }
         return contentValues
     }
+
 
     /**
      * ContentValues#put に Any? を押し込めるようにした拡張関数。
