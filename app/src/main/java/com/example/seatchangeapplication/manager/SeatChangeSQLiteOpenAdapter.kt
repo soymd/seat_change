@@ -16,7 +16,7 @@ import kotlin.reflect.full.memberProperties
 /**
  * DB操作機能を保持するクラス
  */
-class DbManager @Inject constructor(context: Context) {
+class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
 
     private var mDb: SQLiteDatabase
     private val TAG = this::class.simpleName.toString()

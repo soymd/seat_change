@@ -2,7 +2,7 @@ package com.example.seatchangeapplication.di.module
 
 import android.content.Context
 import com.example.seatchangeapplication.di.MainApplication
-import com.example.seatchangeapplication.manager.DbManager
+import com.example.seatchangeapplication.manager.SeatChangeSQLiteOpenAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -15,8 +15,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideDbManager(context: Context): DbManager {
-        return DbManager(context)
+    fun provideDbManager(context: Context): SeatChangeSQLiteOpenAdapter {
+        return SeatChangeSQLiteOpenAdapter(context)
     }
 }
 
