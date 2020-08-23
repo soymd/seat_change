@@ -21,7 +21,7 @@ import kotlin.reflect.full.memberProperties
  */
 class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
 
-    private var mDb: SQLiteDatabase
+    private var mDb: SQLiteDatabase?
     private val TAG = this::class.simpleName.toString()
 
     init {
@@ -61,13 +61,13 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
      * 色設定画面：get
      */
     fun getProjectColorModels(): List<ColorConfigModel> {
-        var sql = "SELECT * FROM ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME}";
+        var sql = "SELECT * FROM ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME};";
 
-        var cursor: Cursor = mDb.rawQuery(sql, null)
-
-        while(cursor.count > 0) {
-            cursor.moveToFirst()
-
+        mDb?.let {
+            var cursor: Cursor = it.rawQuery(sql, null)
+            while (cursor.count > 0) {
+                cursor.moveToFirst()
+            }
         }
 
         return listOf()
