@@ -2,7 +2,6 @@ package com.example.seatchangeapplication.manager
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
 import com.example.seatchangeapplication.common.toSnakeCase
@@ -61,14 +60,14 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
      * 色設定画面：get
      */
     fun getProjectColorModels(): List<ColorConfigModel> {
-        var sql = "SELECT * FROM ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME};";
-
-        mDb?.let {
-            var cursor: Cursor = it.rawQuery(sql, null)
-            while (cursor.count > 0) {
-                cursor.moveToFirst()
-            }
-        }
+//        var sql = "SELECT * FROM ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME};";
+//
+//        mDb?.let {
+//            var cursor: Cursor = it.rawQuery(sql, null)
+//            while (cursor.count > 0) {
+//                cursor.moveToFirst()
+//            }
+//        }
         return listOf()
     }
 

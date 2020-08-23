@@ -30,11 +30,24 @@ class ColorConfigRepositoryImplTest {
     @Test
     fun get() {
         val model = ColorConfigModel.from()
-        model.projectName = "hogehoge"
+        model.projectName = "fake-project"
+        model.colorName = "fake-color"
+        model.colorValue = "fake-color-value"
         every { mockDbAdapter.getProjectColorModels() } returns listOf(model)
 
         val actual = subject.get()
         val expected = listOf(model)
         assertThat(actual, equalTo(expected))
     }
+
+//    @Test
+//    fun post() {
+//        val model = ColorConfigModel.from()
+//        model.projectName = "hogehoge"
+//        model.colorName = "fake-color"
+//        model.colorValue = "fake-color-value"
+//        subject.post(listOf(model))
+//
+//        verify { mockDbAdapter.postProjectColorModels(model) }
+//    }
 }
