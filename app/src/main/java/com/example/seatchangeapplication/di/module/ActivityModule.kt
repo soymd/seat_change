@@ -2,7 +2,6 @@ package com.example.seatchangeapplication.di.module
 
 import com.example.seatchangeapplication.MainActivity
 import com.example.seatchangeapplication.colorconfig.ColorConfigFragment
-import com.example.seatchangeapplication.di.ActivityScoped
 import com.example.seatchangeapplication.menu.MenuFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -10,7 +9,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityModule {
 
-    @ActivityScoped
+    //@ActivityScoped
     @ContributesAndroidInjector(modules = [ViewModelModule::class])
     internal abstract fun mainActivity(): MainActivity
 

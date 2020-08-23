@@ -106,7 +106,7 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
     /**
      * 色設定画面：post
      */
-    fun postProjectColorModels(): Int {
+    fun postProjectColorModels(model: ColorConfigModel): Int {
         return 0
     }
 
@@ -197,4 +197,4 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
     }
 }
 
-class DbOperationException(message: String): Exception(message)
+class DbOperationException(message: String) : Exception(message)
