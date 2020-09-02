@@ -1,6 +1,7 @@
 package com.example.seatchangeapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.common.ArgumentKeys
@@ -8,7 +9,6 @@ import com.example.seatchangeapplication.databinding.ActivityMainBinding
 import com.example.seatchangeapplication.di.MainApplication.Companion.DEBUG_TAG
 import com.example.seatchangeapplication.di.SeatChangeViewModelProviders
 import com.example.seatchangeapplication.di.ViewModelFactory
-import com.example.seatchangeapplication.manager.SeatChangeSQLiteOpenAdapter
 import com.example.seatchangeapplication.menu.MenuFragment
 import com.example.seatchangeapplication.seatchange.SeatChangeFragment
 import dagger.android.support.DaggerAppCompatActivity

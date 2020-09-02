@@ -6,23 +6,16 @@ package com.example.seatchangeapplication.dto
 data class Project (
     var projectId: Int,
     var projectName: Int
-) {
-    companion object {
+): IDto {
+    companion object: IDtoCompanion<Project> {
         /**
          * ファクトリー
          */
-        fun from(): Project {
+        override fun from(): Project {
             return Project(
                 projectId = 0,
                 projectName = 0
             )
         }
-    }
-
-    /**
-     * データ不正チェック
-     */
-    fun isValid(): Boolean {
-        return true;
     }
 }

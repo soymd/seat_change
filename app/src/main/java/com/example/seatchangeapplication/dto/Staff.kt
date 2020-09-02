@@ -6,23 +6,16 @@ package com.example.seatchangeapplication.dto
 data class Staff (
     var staffId: Int,
     var staffName: String
-) {
-    companion object {
+): IDto {
+    companion object: IDtoCompanion<Staff> {
         /**
          * ファクトリー
          */
-        fun from(): Staff {
+        override fun from(): Staff {
             return Staff(
                 staffId = 0,
                 staffName = ""
             )
         }
-    }
-
-    /**
-     * データ不正チェック
-     */
-    fun isValid(): Boolean {
-        return true;
     }
 }

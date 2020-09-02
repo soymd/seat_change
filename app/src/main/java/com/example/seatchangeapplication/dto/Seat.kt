@@ -1,7 +1,5 @@
 package com.example.seatchangeapplication.dto
 
-import java.text.FieldPosition
-
 /**
  * seatテーブルDTO
  */
@@ -10,12 +8,12 @@ data class Seat (
     var desk: Int,
     var positionX: Int,
     var positionY: Int
-) {
-    companion object {
+): IDto {
+    companion object: IDtoCompanion<Seat> {
         /**
          * ファクトリー
          */
-        fun from(): Seat {
+        override fun from(): Seat {
             return Seat(
                 seatId = 0,
                 desk = 0,
@@ -23,12 +21,5 @@ data class Seat (
                 positionY = 0
             )
         }
-    }
-
-    /**
-     * データ不正チェック
-     */
-    fun isValid(): Boolean {
-        return true;
     }
 }

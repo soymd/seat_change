@@ -1,5 +1,8 @@
 package com.example.seatchangeapplication.seatchange
 
+import com.example.seatchangeapplication.IModel
+import com.example.seatchangeapplication.IModelCompanion
+
 /**
  * 席替画面モデル
  */
@@ -11,12 +14,12 @@ data class SeatChangeModel(
     var positionX: Int,
     var positionY: Int,
     var projectColorValue: String
-){
-    companion object {
+): IModel {
+    companion object: IModelCompanion<SeatChangeModel> {
         /**
          * ファクトリー
          */
-        fun from(): SeatChangeModel {
+        override fun from(): SeatChangeModel {
             return SeatChangeModel(
                 relationSeatStaffId = 0,
                 staffName = "",
@@ -32,7 +35,7 @@ data class SeatChangeModel(
     /**
      * データ不正チェック
      */
-    fun isValid(): Boolean {
+    override fun isValid(): Boolean {
         return true;
     }
 }

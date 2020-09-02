@@ -1,5 +1,11 @@
 package com.example.seatchangeapplication.colorconfig
 
+import com.example.seatchangeapplication.IModel
+import com.example.seatchangeapplication.IModelCompanion
+import com.example.seatchangeapplication.dto.IDto
+import com.example.seatchangeapplication.dto.IDtoCompanion
+import java.util.*
+
 /**
  * 色設定画面モデル
  */
@@ -8,12 +14,12 @@ data class ColorConfigModel(
     var projectName: String,
     var colorName: String,
     var colorValue: String
-) {
-    companion object {
+):IModel {
+    companion object: IModelCompanion<ColorConfigModel> {
         /**
          * ファクトリー
          */
-        fun from(): ColorConfigModel {
+        override fun from(): ColorConfigModel {
             return ColorConfigModel(
                 relationProjectColorId = 0,
                 projectName = "",
@@ -26,7 +32,7 @@ data class ColorConfigModel(
     /**
      * データ不正チェック
      */
-    fun isValid(): Boolean {
+    override fun isValid(): Boolean {
         return true;
     }
 }

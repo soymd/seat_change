@@ -7,24 +7,17 @@ data class RelationStaffProject (
     var relationSeatProjectId: Int,
     var seatId: Int,
     var projectId: Int
-) {
-    companion object {
+): IDto {
+    companion object: IDtoCompanion<RelationStaffProject> {
         /**
          * ファクトリー
          */
-        fun from(): RelationStaffProject {
+        override fun from(): RelationStaffProject {
             return RelationStaffProject(
                 relationSeatProjectId = 0,
                 seatId = 0,
                 projectId = 0
             )
         }
-    }
-
-    /**
-     * データ不正チェック
-     */
-    fun isValid(): Boolean {
-        return true;
     }
 }

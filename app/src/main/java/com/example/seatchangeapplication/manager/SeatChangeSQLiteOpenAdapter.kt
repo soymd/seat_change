@@ -2,11 +2,34 @@ package com.example.seatchangeapplication.manager
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.example.seatchangeapplication.colorconfig.ColorConfigModel
 import com.example.seatchangeapplication.common.toSnakeCase
 import com.example.seatchangeapplication.constant.ErrorConst
-import com.example.seatchangeapplication.constant.SqlConst
+import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_VALUE
+import com.example.seatchangeapplication.constant.SqlConst.Companion.DB_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.DESK
+import com.example.seatchangeapplication.constant.SqlConst.Companion.POSITION_X
+import com.example.seatchangeapplication.constant.SqlConst.Companion.POSITION_Y
+import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_PROJECT_COLOR_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_PROJECT_COLOR_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_SEAT_STAFF_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_SEAT_STAFF_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_STAFF_PROJECT_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_STAFF_PROJECT_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.SEAT_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.SEAT_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_ID
+import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_TBL_NAME
 import com.example.seatchangeapplication.dto.RelationProjectColor
 import com.example.seatchangeapplication.dto.RelationSeatStaff
 import com.example.seatchangeapplication.dto.RelationStaffProject
@@ -14,6 +37,7 @@ import com.example.seatchangeapplication.projectconfig.ProjectConfigModel
 import com.example.seatchangeapplication.seatchange.SeatChangeModel
 import javax.inject.Inject
 import kotlin.reflect.full.memberProperties
+import kotlin.Int as Int
 
 /**
  * DB操作機能を保持するクラス
@@ -27,7 +51,7 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
         var dbHelper =
             SeatChangeSQLiteOpenHelper(
                 context,
-                SqlConst.DB_NAME,
+                DB_NAME,
                 null,
                 1
             )
@@ -35,40 +59,126 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
     }
 
     /**
+     * 検索結果カーソルからモデルのリストを取得する
+     */
+    private fun <IModel> getFromRawQuery(sql: String, action:(Cursor) -> IModel): List<IModel> {
+        var modelList = arrayListOf<IModel>()
+        var cursor: Cursor? = null;
+        try {
+            cursor = mDb?.rawQuery(sql, arrayOf()) ?: throw Exception()
+            while (cursor.moveToNext()) {
+                modelList.add(action(cursor))
+            }
+        } catch (e: Exception) {
+            // TODO: DBロック時などエラーハンドリングとトランザクションの制御
+             throw DbOperationException(e.message.toString())
+        } finally {
+            cursor?.close()
+        }
+        return modelList;
+    }
+
+    /**
      * 席替画面：get
      */
-    fun getSeatStaffModels(): List<SeatChangeModel> {
+    fun getSeatStaffProjectColor(): List<SeatChangeModel> {
+        /* NOTE:
+         * SqLiteはASで別名付けないとExceptionを吐く(SqLiteのバグ)。
+         * 値は取れるがtry-catchに引っかかるため、別名は必須。
+         */
         var sql = """
-
+            SELECT
+                $RELATION_SEAT_STAFF_TBL_NAME.$RELATION_SEAT_STAFF_ID AS "alt_relation_id", 
+                $SEAT_TBL_NAME.$DESK AS "alt_desk",
+                $SEAT_TBL_NAME.$POSITION_X AS "alt_position_x",
+                $SEAT_TBL_NAME.$POSITION_Y AS "alt_position_y",
+                $STAFF_TBL_NAME.$STAFF_NAME AS "alt_staff_name",
+                $PROJECT_TBL_NAME.$PROJECT_NAME AS "alt_project_name",
+                $COLOR_TBL_NAME.$COLOR_VALUE AS "alt_color_value"
+            FROM $SEAT_TBL_NAME
+            INNER JOIN $RELATION_SEAT_STAFF_TBL_NAME
+            ON $SEAT_TBL_NAME.$SEAT_ID = $RELATION_SEAT_STAFF_TBL_NAME.$SEAT_ID
+            INNER JOIN $STAFF_TBL_NAME
+            ON $STAFF_TBL_NAME.$STAFF_ID = $RELATION_SEAT_STAFF_TBL_NAME.$STAFF_ID
+            INNER JOIN $RELATION_STAFF_PROJECT_TBL_NAME
+            ON $STAFF_TBL_NAME.$STAFF_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$STAFF_ID
+            INNER JOIN $PROJECT_TBL_NAME
+            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$PROJECT_ID
+            INNER JOIN $RELATION_PROJECT_COLOR_TBL_NAME
+            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$PROJECT_ID
+            INNER JOIN $COLOR_TBL_NAME
+            ON $COLOR_TBL_NAME.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$COLOR_ID
         """.trimIndent()
 
-        return listOf()
+        return getFromRawQuery(sql) { cursor ->
+            SeatChangeModel.from().apply {
+                this.relationSeatStaffId = cursor.getAny("alt_relation_id")
+                this.desk = cursor.getAny("alt_desk")
+                this.positionX = cursor.getAny("alt_position_x")
+                this.positionY = cursor.getAny("alt_position_y")
+                this.staffName = cursor.getAny("alt_staff_name")
+                this.projectName = cursor.getAny("alt_project_name")
+                this.projectColorValue = cursor.getAny("alt_color_value")
+            }
+        }
     }
 
     /**
      * 案件設定画面：get
      */
-    fun getStaffProjectModels(): List<ProjectConfigModel> {
+    fun getStaffProjectColor(): List<ProjectConfigModel> {
         var sql = """
-
+            SELECT 
+                $RELATION_STAFF_PROJECT_TBL_NAME.$RELATION_STAFF_PROJECT_ID AS "alt_relation_id",
+                $STAFF_TBL_NAME.$STAFF_NAME AS "alt_staff_name",
+                $PROJECT_TBL_NAME.$PROJECT_NAME AS "alt_project_name",
+                $COLOR_TBL_NAME.$COLOR_VALUE AS "alt_color_value"
+            FROM $STAFF_TBL_NAME
+            INNER JOIN $RELATION_STAFF_PROJECT_TBL_NAME
+            ON $STAFF_TBL_NAME.$STAFF_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$STAFF_ID
+            INNER JOIN $PROJECT_TBL_NAME
+            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$PROJECT_ID
+            INNER JOIN $RELATION_PROJECT_COLOR_TBL_NAME
+            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$PROJECT_ID
+            INNER JOIN $COLOR_TBL_NAME
+            ON $COLOR_TBL_NAME.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$COLOR_ID
         """.trimIndent()
 
-        return listOf()
+        return getFromRawQuery(sql) { cursor ->
+            ProjectConfigModel.from().apply {
+                this.relationStaffProjectId = cursor.getAny("alt_relation_id")
+                this.staffName = cursor.getAny("alt_staff_name")
+                this.projectName = cursor.getAny("alt_project_name")
+                this.projectColorValue = cursor.getAny("alt_color_value")
+            }
+        }
     }
 
     /**
      * 色設定画面：get
      */
-    fun getProjectColorModels(): List<ColorConfigModel> {
-//        var sql = "SELECT * FROM ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME};";
-//
-//        mDb?.let {
-//            var cursor: Cursor = it.rawQuery(sql, null)
-//            while (cursor.count > 0) {
-//                cursor.moveToFirst()
-//            }
-//        }
-        return listOf()
+    fun getProjectColor(): List<ColorConfigModel> {
+        var sql = """
+            SELECT
+                $RELATION_PROJECT_COLOR_TBL_NAME.$RELATION_PROJECT_COLOR_ID AS "alt_relation_name",
+                $PROJECT_TBL_NAME.$PROJECT_NAME AS "alt_project_name",
+                $COLOR_TBL_NAME.$COLOR_NAME AS "alt_color_name",
+                $COLOR_TBL_NAME.$COLOR_VALUE AS "alt_color_value"
+            FROM $PROJECT_TBL_NAME
+            INNER JOIN $RELATION_PROJECT_COLOR_TBL_NAME
+            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$PROJECT_ID
+            INNER JOIN $COLOR_TBL_NAME
+            ON $COLOR_TBL_NAME.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$COLOR_ID
+        """.trimIndent()
+        
+        return getFromRawQuery(sql) { cursor ->
+            ColorConfigModel.from().apply {
+                this.relationProjectColorId = cursor.getAny("alt_relation_name")
+                this.projectName = cursor.getAny("alt_project_name")
+                this.colorName = cursor.getAny("alt_color_name")
+                this.colorValue = cursor.getAny("alt_color_value")
+            }
+        }
     }
 
     /**
@@ -186,19 +296,40 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
         return contentValues
     }
 
-
     /**
      * ContentValues#put に Any? を押し込めるようにした拡張関数。
      * nullの時はDbOperationExceptionをthrowする。
      */
     private fun ContentValues.castAndPut(key: String, v: Any?) {
         when (v) {
+            is Double -> this.put(key, v)
             is Int -> this.put(key, v)
             is Boolean -> this.put(key, v)
             is String -> this.put(key, v)
             else -> throw DbOperationException(ErrorConst.INVALID_DTO_TYPE)
         }
     }
+
+    /**
+     * 検索結果のCursorから任意の型の情報を取得する拡張関数。
+     */
+    private inline fun <reified T> Cursor.getAny(key: String): T {
+        try {
+            return when (T::class) {
+                Double::class -> this.getDouble(this.getColumnIndex(key)) as T
+                Int::class -> this.getInt(this.getColumnIndex(key)) as T
+                String::class -> this.getString(this.getColumnIndex(key)) as T
+                else -> throw Exception()
+            }
+        } catch (e: Exception) {
+            // TODO: エラーハンドリング
+            Log.d(TAG, e.message.toString())
+            this.close()
+            throw DbOperationException(e.message.toString())
+        }
+        return 0 as T
+    }
 }
 
 class DbOperationException(message: String) : Exception(message)
+

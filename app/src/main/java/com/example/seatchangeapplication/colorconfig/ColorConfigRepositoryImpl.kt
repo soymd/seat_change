@@ -12,7 +12,7 @@ class ColorConfigRepositoryImpl @Inject constructor(private val dbManager: SeatC
     IColorConfigRepository {
 
     override fun get(): List<ColorConfigModel> {
-        return dbManager.getProjectColorModels();
+        return dbManager.getProjectColor();
     }
 
     override fun put(colorConfigModel: List<ColorConfigModel>): Int {

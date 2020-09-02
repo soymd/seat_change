@@ -1,5 +1,8 @@
 package com.example.seatchangeapplication.projectconfig
 
+import com.example.seatchangeapplication.IModel
+import com.example.seatchangeapplication.IModelCompanion
+
 /**
  * 案件設定画面モデル
  */
@@ -8,12 +11,12 @@ data class ProjectConfigModel(
     var staffName: String,
     var projectName: String,
     var projectColorValue: String
-) {
-    companion object {
+):IModel {
+    companion object:IModelCompanion<ProjectConfigModel> {
         /**
          * ファクトリー
          */
-        fun from(): ProjectConfigModel {
+        override fun from(): ProjectConfigModel {
             return ProjectConfigModel(
                 relationStaffProjectId = 0,
                 staffName = "",
@@ -26,7 +29,7 @@ data class ProjectConfigModel(
     /**
      * データ不正チェック
      */
-    fun isValid(): Boolean {
+    override fun isValid(): Boolean {
         return true;
     }
 }
