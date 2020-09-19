@@ -9,13 +9,13 @@ class SqlConst {
         // DB名
         const val DB_NAME = "seat_change"
         // テーブル名
-        const val SEAT_TBL_NAME = "seat"
-        const val STAFF_TBL_NAME = "staff"
-        const val PROJECT_TBL_NAME = "project"
-        const val COLOR_TBL_NAME = "color"
-        const val RELATION_SEAT_STAFF_TBL_NAME = "relation_seat_staff"
-        const val RELATION_STAFF_PROJECT_TBL_NAME = "relation_staff_project"
-        const val RELATION_PROJECT_COLOR_TBL_NAME = "relation_project_color"
+        const val SEAT_TBL = "seat"
+        const val STAFF_TBL = "staff"
+        const val PROJECT_TBL = "project"
+        const val COLOR_TBL = "color"
+        const val RELATION_SEAT_STAFF_TBL = "relation_seat_staff"
+        const val RELATION_STAFF_PROJECT_TBL = "relation_staff_project"
+        const val RELATION_PROJECT_COLOR_TBL = "relation_project_color"
         // seatテーブル
         const val SEAT_ID = "seat_id"
         const val DESK = "desk"

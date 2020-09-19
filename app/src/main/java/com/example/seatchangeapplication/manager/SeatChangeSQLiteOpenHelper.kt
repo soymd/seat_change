@@ -4,7 +4,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.seatchangeapplication.constant.SqlConst
-import java.io.*
 
 
 /**
@@ -22,7 +21,7 @@ class SeatChangeSQLiteOpenHelper(
     version
 ) {
     val sql1 = """
-        CREATE TABLE if not exists "${SqlConst.SEAT_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.SEAT_TBL}" (
             "${SqlConst.SEAT_ID}" INTEGER NOT NULL,
             "${SqlConst.DESK}"	INTEGER NOT NULL,
             "${SqlConst.POSITION_X}" INTEGER NOT NULL,
@@ -32,7 +31,7 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val sql2 = """
-        CREATE TABLE if not exists "${SqlConst.STAFF_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.STAFF_TBL}" (
             "${SqlConst.STAFF_ID}" INTEGER NOT NULL,
             "${SqlConst.STAFF_NAME}" TEXT NOT NULL,
             PRIMARY KEY("${SqlConst.STAFF_ID}")
@@ -40,7 +39,7 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val sql3 = """
-        CREATE TABLE if not exists "${SqlConst.PROJECT_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.PROJECT_TBL}" (
             "${SqlConst.PROJECT_ID}" INTEGER NOT NULL,
             "${SqlConst.PROJECT_NAME}"	TEXT NOT NULL,
             PRIMARY KEY("${SqlConst.PROJECT_ID}" AUTOINCREMENT)
@@ -48,7 +47,7 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val sql4 = """
-        CREATE TABLE if not exists "${SqlConst.COLOR_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.COLOR_TBL}" (
             "${SqlConst.COLOR_ID}"	INTEGER NOT NULL,
             "${SqlConst.COLOR_NAME}" TEXT NOT NULL,
             "${SqlConst.COLOR_VALUE}" TEXT NOT NULL,
@@ -57,7 +56,7 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val sql5 = """
-        CREATE TABLE if not exists "${SqlConst.RELATION_SEAT_STAFF_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.RELATION_SEAT_STAFF_TBL}" (
             "${SqlConst.RELATION_SEAT_STAFF_ID}" INTEGER NOT NULL,
             "${SqlConst.SEAT_ID}" INTEGER NOT NULL,
             "${SqlConst.STAFF_ID}" INTEGER NOT NULL,
@@ -66,7 +65,7 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val sql6 = """
-        CREATE TABLE if not exists "${SqlConst.RELATION_STAFF_PROJECT_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.RELATION_STAFF_PROJECT_TBL}" (
             "${SqlConst.RELATION_STAFF_PROJECT_ID}"	INTEGER NOT NULL,
             "${SqlConst.STAFF_ID}"	INTEGER NOT NULL,
             "${SqlConst.PROJECT_ID}" INTEGER NOT NULL,
@@ -75,7 +74,7 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val sql7 = """
-        CREATE TABLE if not exists "${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME}" (
+        CREATE TABLE if not exists "${SqlConst.RELATION_PROJECT_COLOR_TBL}" (
             "${SqlConst.RELATION_PROJECT_COLOR_ID}" INTEGER NOT NULL,
             "${SqlConst.PROJECT_ID}" INTEGER NOT NULL,
             "${SqlConst.COLOR_ID}"	INTEGER NOT NULL,
@@ -84,33 +83,33 @@ class SeatChangeSQLiteOpenHelper(
     """.trimIndent()
 
     val stubList = listOf(
-        "INSERT INTO ${SqlConst.SEAT_TBL_NAME} VALUES(1, 1, 1, 1);",
-        "INSERT INTO ${SqlConst.SEAT_TBL_NAME} VALUES(2, 1, 1, 2);",
-        "INSERT INTO ${SqlConst.SEAT_TBL_NAME} VALUES(3, 1, 2, 1);",
+        "INSERT INTO ${SqlConst.SEAT_TBL} VALUES(1, 1, 1, 1);",
+        "INSERT INTO ${SqlConst.SEAT_TBL} VALUES(2, 1, 1, 2);",
+        "INSERT INTO ${SqlConst.SEAT_TBL} VALUES(3, 1, 2, 1);",
 
-        "INSERT INTO ${SqlConst.STAFF_TBL_NAME} VALUES(1, 'test一郎');",
-        "INSERT INTO ${SqlConst.STAFF_TBL_NAME} VALUES(2, 'test次郎');",
-        "INSERT INTO ${SqlConst.STAFF_TBL_NAME} VALUES(3, 'test三郎');",
+        "INSERT INTO ${SqlConst.STAFF_TBL} VALUES(1, 'test一郎');",
+        "INSERT INTO ${SqlConst.STAFF_TBL} VALUES(2, 'test次郎');",
+        "INSERT INTO ${SqlConst.STAFF_TBL} VALUES(3, 'test三郎');",
 
-        "INSERT INTO ${SqlConst.PROJECT_TBL_NAME} VALUES(1, '案件1');",
-        "INSERT INTO ${SqlConst.PROJECT_TBL_NAME} VALUES(2, '案件2');",
-        "INSERT INTO ${SqlConst.PROJECT_TBL_NAME} VALUES(3, '案件3');",
+        "INSERT INTO ${SqlConst.PROJECT_TBL} VALUES(1, '案件1');",
+        "INSERT INTO ${SqlConst.PROJECT_TBL} VALUES(2, '案件2');",
+        "INSERT INTO ${SqlConst.PROJECT_TBL} VALUES(3, '案件3');",
 
-        "INSERT INTO ${SqlConst.COLOR_TBL_NAME} VALUES(1, '赤', 'ff0000');",
-        "INSERT INTO ${SqlConst.COLOR_TBL_NAME} VALUES(2, '緑', '00ff00');",
-        "INSERT INTO ${SqlConst.COLOR_TBL_NAME} VALUES(3, '青', '0000ff');",
+        "INSERT INTO ${SqlConst.COLOR_TBL} VALUES(1, '赤', 'ff0000');",
+        "INSERT INTO ${SqlConst.COLOR_TBL} VALUES(2, '緑', '00ff00');",
+        "INSERT INTO ${SqlConst.COLOR_TBL} VALUES(3, '青', '0000ff');",
 
-        "INSERT INTO ${SqlConst.RELATION_SEAT_STAFF_TBL_NAME} VALUES(1, 1, 1);",
-        "INSERT INTO ${SqlConst.RELATION_SEAT_STAFF_TBL_NAME} VALUES(2, 2, 2);",
-        "INSERT INTO ${SqlConst.RELATION_SEAT_STAFF_TBL_NAME} VALUES(3, 3, 3);",
+        "INSERT INTO ${SqlConst.RELATION_SEAT_STAFF_TBL} VALUES(1, 1, 1);",
+        "INSERT INTO ${SqlConst.RELATION_SEAT_STAFF_TBL} VALUES(2, 2, 2);",
+        "INSERT INTO ${SqlConst.RELATION_SEAT_STAFF_TBL} VALUES(3, 3, 3);",
 
-        "INSERT INTO ${SqlConst.RELATION_STAFF_PROJECT_TBL_NAME} VALUES(1, 1, 1);",
-        "INSERT INTO ${SqlConst.RELATION_STAFF_PROJECT_TBL_NAME} VALUES(2, 2, 2);",
-        "INSERT INTO ${SqlConst.RELATION_STAFF_PROJECT_TBL_NAME} VALUES(3, 3, 3);",
+        "INSERT INTO ${SqlConst.RELATION_STAFF_PROJECT_TBL} VALUES(1, 1, 1);",
+        "INSERT INTO ${SqlConst.RELATION_STAFF_PROJECT_TBL} VALUES(2, 2, 2);",
+        "INSERT INTO ${SqlConst.RELATION_STAFF_PROJECT_TBL} VALUES(3, 3, 3);",
 
-        "INSERT INTO ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME} VALUES(1, 1, 1);",
-        "INSERT INTO ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME} VALUES(2, 2, 2);",
-        "INSERT INTO ${SqlConst.RELATION_PROJECT_COLOR_TBL_NAME} VALUES(3, 3, 3);"
+        "INSERT INTO ${SqlConst.RELATION_PROJECT_COLOR_TBL} VALUES(1, 1, 1);",
+        "INSERT INTO ${SqlConst.RELATION_PROJECT_COLOR_TBL} VALUES(2, 2, 2);",
+        "INSERT INTO ${SqlConst.RELATION_PROJECT_COLOR_TBL} VALUES(3, 3, 3);"
     )
 
     /**

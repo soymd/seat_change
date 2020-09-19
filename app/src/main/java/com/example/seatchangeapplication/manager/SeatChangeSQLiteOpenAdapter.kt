@@ -10,7 +10,7 @@ import com.example.seatchangeapplication.common.toSnakeCase
 import com.example.seatchangeapplication.constant.ErrorConst
 import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_ID
 import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_NAME
-import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_TBL
 import com.example.seatchangeapplication.constant.SqlConst.Companion.COLOR_VALUE
 import com.example.seatchangeapplication.constant.SqlConst.Companion.DB_NAME
 import com.example.seatchangeapplication.constant.SqlConst.Companion.DESK
@@ -18,18 +18,18 @@ import com.example.seatchangeapplication.constant.SqlConst.Companion.POSITION_X
 import com.example.seatchangeapplication.constant.SqlConst.Companion.POSITION_Y
 import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_ID
 import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_NAME
-import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.PROJECT_TBL
 import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_PROJECT_COLOR_ID
-import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_PROJECT_COLOR_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_PROJECT_COLOR_TBL
 import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_SEAT_STAFF_ID
-import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_SEAT_STAFF_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_SEAT_STAFF_TBL
 import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_STAFF_PROJECT_ID
-import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_STAFF_PROJECT_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.RELATION_STAFF_PROJECT_TBL
 import com.example.seatchangeapplication.constant.SqlConst.Companion.SEAT_ID
-import com.example.seatchangeapplication.constant.SqlConst.Companion.SEAT_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.SEAT_TBL
 import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_ID
 import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_NAME
-import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_TBL_NAME
+import com.example.seatchangeapplication.constant.SqlConst.Companion.STAFF_TBL
 import com.example.seatchangeapplication.dto.RelationProjectColor
 import com.example.seatchangeapplication.dto.RelationSeatStaff
 import com.example.seatchangeapplication.dto.RelationStaffProject
@@ -71,7 +71,7 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
             }
         } catch (e: Exception) {
             // TODO: DBロック時などエラーハンドリングとトランザクションの制御
-             throw DbOperationException(e.message.toString())
+            throw DbOperationException(e.message.toString())
         } finally {
             cursor?.close()
         }
@@ -88,26 +88,26 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
          */
         var sql = """
             SELECT
-                $RELATION_SEAT_STAFF_TBL_NAME.$RELATION_SEAT_STAFF_ID AS "alt_relation_id", 
-                $SEAT_TBL_NAME.$DESK AS "alt_desk",
-                $SEAT_TBL_NAME.$POSITION_X AS "alt_position_x",
-                $SEAT_TBL_NAME.$POSITION_Y AS "alt_position_y",
-                $STAFF_TBL_NAME.$STAFF_NAME AS "alt_staff_name",
-                $PROJECT_TBL_NAME.$PROJECT_NAME AS "alt_project_name",
-                $COLOR_TBL_NAME.$COLOR_VALUE AS "alt_color_value"
-            FROM $SEAT_TBL_NAME
-            INNER JOIN $RELATION_SEAT_STAFF_TBL_NAME
-            ON $SEAT_TBL_NAME.$SEAT_ID = $RELATION_SEAT_STAFF_TBL_NAME.$SEAT_ID
-            INNER JOIN $STAFF_TBL_NAME
-            ON $STAFF_TBL_NAME.$STAFF_ID = $RELATION_SEAT_STAFF_TBL_NAME.$STAFF_ID
-            INNER JOIN $RELATION_STAFF_PROJECT_TBL_NAME
-            ON $STAFF_TBL_NAME.$STAFF_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$STAFF_ID
-            INNER JOIN $PROJECT_TBL_NAME
-            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$PROJECT_ID
-            INNER JOIN $RELATION_PROJECT_COLOR_TBL_NAME
-            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$PROJECT_ID
-            INNER JOIN $COLOR_TBL_NAME
-            ON $COLOR_TBL_NAME.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$COLOR_ID
+                $RELATION_SEAT_STAFF_TBL.$RELATION_SEAT_STAFF_ID AS "alt_relation_id", 
+                $SEAT_TBL.$DESK AS "alt_desk",
+                $SEAT_TBL.$POSITION_X AS "alt_position_x",
+                $SEAT_TBL.$POSITION_Y AS "alt_position_y",
+                $STAFF_TBL.$STAFF_NAME AS "alt_staff_name",
+                $PROJECT_TBL.$PROJECT_NAME AS "alt_project_name",
+                $COLOR_TBL.$COLOR_VALUE AS "alt_color_value"
+            FROM $SEAT_TBL
+            INNER JOIN $RELATION_SEAT_STAFF_TBL
+            ON $SEAT_TBL.$SEAT_ID = $RELATION_SEAT_STAFF_TBL.$SEAT_ID
+            INNER JOIN $STAFF_TBL
+            ON $STAFF_TBL.$STAFF_ID = $RELATION_SEAT_STAFF_TBL.$STAFF_ID
+            INNER JOIN $RELATION_STAFF_PROJECT_TBL
+            ON $STAFF_TBL.$STAFF_ID = $RELATION_STAFF_PROJECT_TBL.$STAFF_ID
+            INNER JOIN $PROJECT_TBL
+            ON $PROJECT_TBL.$PROJECT_ID = $RELATION_STAFF_PROJECT_TBL.$PROJECT_ID
+            INNER JOIN $RELATION_PROJECT_COLOR_TBL
+            ON $PROJECT_TBL.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL.$PROJECT_ID
+            INNER JOIN $COLOR_TBL
+            ON $COLOR_TBL.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL.$COLOR_ID
         """.trimIndent()
 
         return getFromRawQuery(sql) { cursor ->
@@ -129,19 +129,19 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
     fun getStaffProjectColor(): List<ProjectConfigModel> {
         var sql = """
             SELECT 
-                $RELATION_STAFF_PROJECT_TBL_NAME.$RELATION_STAFF_PROJECT_ID AS "alt_relation_id",
-                $STAFF_TBL_NAME.$STAFF_NAME AS "alt_staff_name",
-                $PROJECT_TBL_NAME.$PROJECT_NAME AS "alt_project_name",
-                $COLOR_TBL_NAME.$COLOR_VALUE AS "alt_color_value"
-            FROM $STAFF_TBL_NAME
-            INNER JOIN $RELATION_STAFF_PROJECT_TBL_NAME
-            ON $STAFF_TBL_NAME.$STAFF_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$STAFF_ID
-            INNER JOIN $PROJECT_TBL_NAME
-            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_STAFF_PROJECT_TBL_NAME.$PROJECT_ID
-            INNER JOIN $RELATION_PROJECT_COLOR_TBL_NAME
-            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$PROJECT_ID
-            INNER JOIN $COLOR_TBL_NAME
-            ON $COLOR_TBL_NAME.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$COLOR_ID
+                $RELATION_STAFF_PROJECT_TBL.$RELATION_STAFF_PROJECT_ID AS "alt_relation_id",
+                $STAFF_TBL.$STAFF_NAME AS "alt_staff_name",
+                $PROJECT_TBL.$PROJECT_NAME AS "alt_project_name",
+                $COLOR_TBL.$COLOR_VALUE AS "alt_color_value"
+            FROM $STAFF_TBL
+            INNER JOIN $RELATION_STAFF_PROJECT_TBL
+            ON $STAFF_TBL.$STAFF_ID = $RELATION_STAFF_PROJECT_TBL.$STAFF_ID
+            INNER JOIN $PROJECT_TBL
+            ON $PROJECT_TBL.$PROJECT_ID = $RELATION_STAFF_PROJECT_TBL.$PROJECT_ID
+            INNER JOIN $RELATION_PROJECT_COLOR_TBL
+            ON $PROJECT_TBL.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL.$PROJECT_ID
+            INNER JOIN $COLOR_TBL
+            ON $COLOR_TBL.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL.$COLOR_ID
         """.trimIndent()
 
         return getFromRawQuery(sql) { cursor ->
@@ -160,15 +160,15 @@ class SeatChangeSQLiteOpenAdapter @Inject constructor(context: Context) {
     fun getProjectColor(): List<ColorConfigModel> {
         var sql = """
             SELECT
-                $RELATION_PROJECT_COLOR_TBL_NAME.$RELATION_PROJECT_COLOR_ID AS "alt_relation_name",
-                $PROJECT_TBL_NAME.$PROJECT_NAME AS "alt_project_name",
-                $COLOR_TBL_NAME.$COLOR_NAME AS "alt_color_name",
-                $COLOR_TBL_NAME.$COLOR_VALUE AS "alt_color_value"
-            FROM $PROJECT_TBL_NAME
-            INNER JOIN $RELATION_PROJECT_COLOR_TBL_NAME
-            ON $PROJECT_TBL_NAME.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$PROJECT_ID
-            INNER JOIN $COLOR_TBL_NAME
-            ON $COLOR_TBL_NAME.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL_NAME.$COLOR_ID
+                $RELATION_PROJECT_COLOR_TBL.$RELATION_PROJECT_COLOR_ID AS "alt_relation_name",
+                $PROJECT_TBL.$PROJECT_NAME AS "alt_project_name",
+                $COLOR_TBL.$COLOR_NAME AS "alt_color_name",
+                $COLOR_TBL.$COLOR_VALUE AS "alt_color_value"
+            FROM $PROJECT_TBL
+            INNER JOIN $RELATION_PROJECT_COLOR_TBL
+            ON $PROJECT_TBL.$PROJECT_ID = $RELATION_PROJECT_COLOR_TBL.$PROJECT_ID
+            INNER JOIN $COLOR_TBL
+            ON $COLOR_TBL.$COLOR_ID = $RELATION_PROJECT_COLOR_TBL.$COLOR_ID
         """.trimIndent()
         
         return getFromRawQuery(sql) { cursor ->

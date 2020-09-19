@@ -33,7 +33,7 @@ class ColorConfigRepositoryImplTest {
         model.projectName = "fake-project"
         model.colorName = "fake-color"
         model.colorValue = "fake-color-value"
-        every { mockDbAdapter.getProjectColorModels() } returns listOf(model)
+        every { mockDbAdapter.getProjectColor() } returns listOf(model)
 
         val actual = subject.get()
         val expected = listOf(model)
