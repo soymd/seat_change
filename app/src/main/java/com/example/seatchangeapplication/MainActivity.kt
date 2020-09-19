@@ -23,7 +23,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
 
-    private lateinit var menuFragment: MenuFragment
+    private var menuFragment: MenuFragment = MenuFragment()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -49,12 +49,8 @@ class MainActivity : DaggerAppCompatActivity() {
             viewModel = this@MainActivity.viewModel
         }
         viewModel.callMenuEvent.observe(this, Observer {
-            callMenuFragment()
+            callMenuFragment(it)
         })
-
-        binding.hogeButton.setOnClickListener {
-            hoge()
-        }
     }
 
     override fun onResume() {
@@ -66,25 +62,30 @@ class MainActivity : DaggerAppCompatActivity() {
             .commit()
     }
 
-    private fun callMenuFragment() {
-        //    supportFragmentManager.fragments[0].
-
-        menuFragment = MenuFragment()
+    private fun callMenuFragment(isClosed: Boolean) {
         menuFragment.enterTransition = TransitionSet().addTransition(
             TransitionInflater.from(this).inflateTransition(
                 R.transition.transition_fragment_enter
             )
         )
+        if (isClosed) {
+            // TODO: アニメーション効かない
+            closeMenu()
+        } else {
+            openMenu()
+        }
+    }
+
+    private fun openMenu() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.menuFragmentRoot, menuFragment)
+            .replace(R.id.menuFragmentRoot, menuFragment)
             .addToBackStack(null)
             .commit()
     }
 
-    private fun hoge() {
-        supportFragmentManager.popBackStack()
-//        supportFragmentManager.beginTransaction()
-//            .remove(menuFragment)
-//            .commit()
+    private fun closeMenu() {
+        supportFragmentManager.beginTransaction()
+            .remove(menuFragment)
+            .commit()
     }
 }

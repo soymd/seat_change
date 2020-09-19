@@ -8,11 +8,12 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(val repository: MainRepository) : ViewModel() {
 
-    private val _callMenuEvent = MutableLiveData<Void>()
-    val callMenuEvent: LiveData<Void> = _callMenuEvent
+    private val _callMenuEvent = MutableLiveData<Boolean>(true)
+    val callMenuEvent: LiveData<Boolean> = _callMenuEvent
 
     fun callMenu() {
-        _callMenuEvent.value = null
+        var tmp = _callMenuEvent.value ?: true
+        _callMenuEvent.value = !tmp
     }
 
     fun countGreeting(): Int {
