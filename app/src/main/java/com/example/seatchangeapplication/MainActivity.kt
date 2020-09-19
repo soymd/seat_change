@@ -1,7 +1,8 @@
 package com.example.seatchangeapplication
 
 import android.os.Bundle
-import android.util.Log
+import android.transition.TransitionInflater
+import android.transition.TransitionSet
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.seatchangeapplication.common.ArgumentKeys
@@ -21,6 +22,8 @@ class MainActivity : DaggerAppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var viewModel: MainViewModel
+
+    private lateinit var menuFragment: MenuFragment
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -48,6 +51,10 @@ class MainActivity : DaggerAppCompatActivity() {
         viewModel.callMenuEvent.observe(this, Observer {
             callMenuFragment()
         })
+
+        binding.hogeButton.setOnClickListener {
+            hoge()
+        }
     }
 
     override fun onResume() {
@@ -60,10 +67,24 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun callMenuFragment() {
-        val menuFragment = MenuFragment()
+        //    supportFragmentManager.fragments[0].
+
+        menuFragment = MenuFragment()
+        menuFragment.enterTransition = TransitionSet().addTransition(
+            TransitionInflater.from(this).inflateTransition(
+                R.transition.transition_fragment_enter
+            )
+        )
         supportFragmentManager.beginTransaction()
-            .replace(R.id.menuFragmentRoot, menuFragment)
+            .add(R.id.menuFragmentRoot, menuFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun hoge() {
+        supportFragmentManager.popBackStack()
+//        supportFragmentManager.beginTransaction()
+//            .remove(menuFragment)
+//            .commit()
     }
 }
